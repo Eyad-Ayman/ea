@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///C:/Users/eyada/Downloads/jquery-viewer.html -->
+<html lang="ar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دفتر الحب الأبدي</title>
+  <link href="./jquery-viewer_files/css2" rel="stylesheet">
+  <link rel="stylesheet" href="./jquery-viewer_files/all.min.css">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, child, update, remove } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_RfEl18oycTKbwTP8DkdltZimeQWwyAo",
+      authDomain: "eyadmariam-70ed5.firebaseapp.com",
+      databaseURL: "https://eyadmariam-70ed5-default-rtdb.firebaseio.com",
+      projectId: "eyadmariam-70ed5",
+      storageBucket: "eyadmariam-70ed5.appspot.com",
+      messagingSenderId: "135147139312",
+      appId: "1:135147139312:web:7a0bce5c04d19a22099235",
+      measurementId: "G-7QK913E5FY"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const notesRef = ref(db, 'notes');
+
+    window.saveNote = () => {
+      const userName = document.querySelector('input[name="userName"]:checked').value;
+      const text = document.getElementById("loveNote").value;
+      const image = document.getElementById("uploadedImage").src;
+      const hasImage = document.getElementById("uploadedImage").style.display !== "none";
+
+      if (!text.trim()) {
+        alert("من فضلك اكتب شيئًا قبل الحفظ");
+        return;
+      }
+
+      const note = {
+        user: userName,
+        text,
+        timestamp: new Date().toISOString(),
+        image: hasImage ? image : null,
+        comments: [],
+        likes: 0
+      };
+
+      push(notesRef, note);
+      document.getElementById("loveNote").value = "";
+      document.getElementById("uploadedImage").style.display = "none";
+    };
+
+    window.previewImage = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.getElementById("uploadedImage");
+          img.src = e.target.result;
+          img.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+
+    function loadNotes() {
+      onValue(notesRef, (snapshot) => {
+        const data = snapshot.val();
+        const feed = document.getElementById("notesFeed");
+        feed.innerHTML = "";
+        if (data) {
+          Object.entries(data).reverse().forEach(([key, note]) => {
+            const noteDiv = document.createElement("div");
+            noteDiv.className = "note-item glassy-card";
+            noteDiv.innerHTML = `
+              <div class="note-header">
+                <img class="story-thumb" src="${note.user === 'Eyad' ? 'https://i.imgur.com/Yg6uBKW.png' : 'https://i.imgur.com/gUdU2Tx.png'}" alt="avatar">
+                <div>
+                  <div class="note-user">${note.user}</div>
+                  <div class="note-time">${new Date(note.timestamp).toLocaleString()}</div>
+                </div>
+                <i class="fas fa-trash delete-note" data-id="${key}" title="حذف"></i>
+              </div>
+              <div class="note-text">${note.text}</div>
+              ${note.image ? `<img src="${note.image}" class="note-img">` : ''}
+              <div class="note-reactions">
+                <i class="fas fa-heart" data-id="${key}" onclick="toggleLike(this)"></i>
+                <span class="like-count">${note.likes || 0}</span>
+                <i class="fas fa-comment" onclick="toggleCommentSection(this)"></i>
+              </div>
+              <div class="comment-section" style="display:none;">
+                <input type="text" placeholder="أضف تعليق..." class="comment-input">
+                <button class="comment-btn" data-id="${key}">نشر</button>
+                <div class="comments">
+                  ${(note.comments || []).map(c => `<div class="comment"><strong>${c.user}:</strong> ${c.text}</div>`).join('')}
+                </div>
+              </div>
+            `;
+            feed.appendChild(noteDiv);
+          });
+
+          document.querySelectorAll('.comment-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const noteId = btn.getAttribute('data-id');
+              const input = btn.previousElementSibling;
+              const commentText = input.value;
+              const user = document.querySelector('input[name="userName"]:checked').value;
+              if (!commentText.trim()) return;
+              const comment = { user, text: commentText };
+              const commentRef = child(notesRef, noteId);
+              onValue(commentRef, (snap) => {
+                const oldComments = snap.val().comments || [];
+                update(commentRef, {
+                  comments: [...oldComments, comment]
+                });
+              }, { onlyOnce: true });
+              input.value = "";
+            });
+          });
+
+          document.querySelectorAll('.delete-note').forEach(icon => {
+            icon.addEventListener('click', () => {
+              const noteId = icon.getAttribute('data-id');
+              if (confirm("هل أنت متأكد أنك تريد حذف هذه الملاحظة؟")) {
+                const noteRef = child(notesRef, noteId);
+                remove(noteRef);
+              }
+            });
+          });
+        } else {
+          feed.innerHTML = '<div class="no-notes">لا توجد ملاحظات بعد</div>';
+        }
+      });
+    }
+
+    window.toggleLike = (icon) => {
+      const noteId = icon.getAttribute('data-id');
+      const countSpan = icon.nextElementSibling;
+      const noteRef = child(notesRef, noteId);
+      onValue(noteRef, (snap) => {
+        let currentLikes = snap.val().likes || 0;
+        currentLikes++;
+        update(noteRef, { likes: currentLikes });
+        countSpan.textContent = currentLikes;
+        icon.classList.add('liked');
+      }, { onlyOnce: true });
+    }
+
+    window.toggleCommentSection = (icon) => {
+      const section = icon.closest('.note-item').querySelector('.comment-section');
+      section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+
+    loadNotes();
+  </script>
+  <style>
+   @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      40% { transform: scale(0.95); }
+      60% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-beat {
+      display: inline-block;
+      color: #e63946;
+      font-weight: bold;
+      animation: heartbeat 1.5s infinite;
+      font-size: 18px;
+    }
+
+    html, body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #2b0033);
+      color: white;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.5rem;
+      background-color: #ff5c8d;
+      color: white;
+    }
+    .story-bar {
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      gap: 10px;
+      background: #111;
+      border-bottom: 1px solid #333;
+    }
+    .story-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #ff5c8d;
+    }
+    .container {
+      padding: 15px;
+    }
+    .user-selection {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      resize: none;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      background: #ff5c8d;
+      border: none;
+      padding: 10px;
+      font-size: 1.1rem;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .glassy-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px 0;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .note-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .note-user {
+      font-weight: bold;
+    }
+    .note-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .note-reactions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .note-reactions i {
+      cursor: pointer;
+    }
+    .note-reactions i.liked {
+      color: #ff5c8d;
+    }
+    .comment-section {
+      margin-top: 10px;
+    }
+    .comment-input {
+      width: 80%;
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+    .comment-btn {
+      padding: 5px 10px;
+      background-color: #ff5c8d;
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+    .comments {
+      margin-top: 5px;
+    }
+    .comment {
+      margin-top: 3px;
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      40% { transform: scale(0.95); }
+      60% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-beat {
+      display: inline-block;
+      color: #e63946;
+      font-weight: bold;
+      animation: heartbeat 1.5s infinite;
+      font-size: 18px;
+    }
+
+    .story-strip {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px;
+      justify-content: center;
+    }
+
+    .story {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid #e91e63;
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .story img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .story-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      transition: opacity 0.5s ease;
+    }
+
+    .story-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+      padding: 20px;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دفتر الحب الأبدي 💖</title>
+  
+  
+  
+  <script src="./jquery-viewer_files/firebase-database.js.download"></script>
+  
+
+
+  <audio autoplay="" loop="">
+    <source src="https://firebasestorage.googleapis.com/v0/b/eyadmariam-70ed5.appspot.com/o/lovesong.mp3?alt=media" type="audio/mp3">
+  </audio>
+       <div style="text-align:center;margin-bottom:15px;font-size:14px">
+<h1>دفتر الحب الأبدي 💖</h1></div>
+  
+  
+  <div class="note-item glassy-card">
+    
+    <div id="mariamSection" class="section hidden">
+      
+      
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+      
+    </div>
+    
+    
+         <div style="text-align:center;margin-bottom:15px;font-size:14px">
+      ✨ فكرة حبنا: نكتب كل يوم كلمة حب ونشوف قد إيه عمرنا الجميل بيكبر 🥰
+      <div style="text-align:center;margin-bottom:15px;font-size:14px">
+    مرت <span id="daysCount" class="heart-beat">135</span> يوم من الحب 💕
+  </div>
+    </div>
+  </div>
+  <div id="fullscreenViewer" class="fullscreen-viewer" onclick="hideFullscreen()">
+    
+  </div>
+  <script>
+    let currentSection = 'main';
+    function showSection(name) {
+      document.getElementById('eyadSection').classList.add('hidden');
+      document.getElementById('mariamSection').classList.add('hidden');
+      document.getElementById(name + 'Section').classList.remove('hidden');
+      document.getElementById('backButton').style.display = 'inline-block';
+      currentSection = name;
+    }
+    function backToMain() {
+      document.getElementById('eyadSection').classList.add('hidden');
+      document.getElementById('mariamSection').classList.add('hidden');
+      document.getElementById('backButton').style.display = 'none';
+      currentSection = 'main';
+    }
+    document.getElementById("eyadNote").addEventListener("input", function() {
+      document.getElementById("eyadPreview").innerText = this.value;
+    });
+    document.getElementById("mariamNote").addEventListener("input", function() {
+      document.getElementById("mariamPreview").innerText = this.value;
+    });
+    function showFullscreen(url) {
+      document.getElementById("fullscreenImage").src = url;
+      document.getElementById("fullscreenViewer").style.display = "flex";
+    }
+    function hideFullscreen() {
+      document.getElementById("fullscreenViewer").style.display = "none";
+    }
+    function uploadImage(event) {
+      const file = event.target.files[0];
+      const storageRef = firebase.storage().ref('images/' + file.name);
+      storageRef.put(file).then(() => {
+        storageRef.getDownloadURL().then((url) => {
+          const img = document.createElement('img');
+          img.src = url;
+          img.onclick = () => showFullscreen(url);
+          document.getElementById('gallery').appendChild(img);
+          const timeline = document.getElementById("timeline");
+          const block = document.createElement("div");
+          const now = new Date().toLocaleDateString('ar-EG');
+          block.innerHTML = `<div style="margin-bottom:10px;font-size:13px;color:#555">📅 ${now}</div><img src="${url}" style="width:100%;border-radius:8px;margin-top:5px;box-shadow:0 2px 8px rgba(0,0,0,0.1);cursor:pointer" onclick="showFullscreen('${url}')" />`;
+          timeline.prepend(block);
+        });
+      });
+    }
+    let mediaRecorder;
+    let audioChunks = [];
+    function startRecording(who) {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        audioChunks = [];
+        mediaRecorder.addEventListener('dataavailable', event => {
+          audioChunks.push(event.data);
+        });
+        mediaRecorder.addEventListener('stop', () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioURL = URL.createObjectURL(audioBlob);
+          document.getElementById('player' + (who === 'eyad' ? 'Eyad' : 'Mariam')).src = audioURL;
+        });
+      });
+    }
+    function stopRecording() {
+      if (mediaRecorder) {
+        mediaRecorder.stop();
+      }
+    }
+    function updateDaysCount() {
+      const startDate = new Date("2024-11-23");
+      const today = new Date();
+      const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      document.getElementById("daysCount").textContent = diff;
+    }
+    updateDaysCount();
+    setInterval(updateDaysCount, 86400000);
+  </script>
+
+
+
+  
+  <div class="container">
+    <div class="user-selection">
+      <label><input type="radio" name="userName" value="Eyad" checked=""> Eyad</label>
+      <label><input type="radio" name="userName" value="maryam"> Maryam</label>
+    </div>
+    <textarea id="loveNote" placeholder="اكتب رسالتك هنا..."></textarea>
+    <input type="file" accept="image/*" onchange="previewImage(event)">
+    <img id="uploadedImage" style="display:none; width: 100%; border-radius: 12px; margin-top: 10px;">
+    <button onclick="saveNote()">احفظ 💖</button>
+    <div id="notesFeed"><div class="no-notes">لا توجد ملاحظات بعد</div></div>
+  </div>
+
+
+<div class="note-item glassy-card"><div id="timeline"></div>
+           <div style="text-align:center;margin-bottom:15px;font-size:px">
+        
+      🕊️ تايم لاين الحب:
+      <div class="post">🌸 أحبك أكثر مما تتخيل 💕</div>
+        <div class="post">💌 كل لحظة تجمعنا هي نعمة من الله ✨</div>
+        <div class="post">🌹 عيناك وطن، وقلبي لاجئ فيه 🥰</div>
+      </div>
+    </div></body></html>
