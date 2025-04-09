@@ -1624,9 +1624,9 @@
           </div>
         </div>
         
-<div class="profile-section">
-          <h3><i class="fas fa-eye"></i> عيون مريم</h3>
-          <div class="love-item" onclick="openModal('https://i.imgur.com/05vI1hV.jpg')">
+        <div class="profile-section">
+          <h3><i class="fas fa-eye"></i> Mariam Eye</h3>
+          <div class="love-item" onclick="showMariamEye()">
             <i class="fas fa-eye"></i>
             <span>انقر هنا لرؤية عيون مريم الجميلة</span>
           </div>
@@ -1660,6 +1660,12 @@
   <div id="imageModal" class="modal">
     <span class="close-modal" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="modalImage">
+  </div>
+
+  <!-- Modal لعرض عيون مريم -->
+  <div id="mariamEyeModal" class="modal">
+    <span class="close-modal" onclick="closeMariamEyeModal()">&times;</span>
+    <img class="modal-content" src="https://i.imgur.com/05vI1hV.jpeg" alt="Mariam Eye">
   </div>
 
   <audio id="bgMusic" loop>
@@ -1729,7 +1735,9 @@
         username = name;
         currentUser = name === 'eyad' ? 'Eyad' : 'Maryam';
         
-        // لا نقوم بتحديث صورة البروفايل هنا لأننا نريدها ثابتة في صفحة حبنا فقط
+        // Update profile
+        document.getElementById('profileImage').src = avatars[name];
+        
         // Hide login and show app
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('appContent').classList.remove('hidden');
@@ -2068,6 +2076,15 @@
       document.getElementById('imageModal').style.display = 'none';
     }
 
+    // Mariam Eye Modal System
+    window.showMariamEye = () => {
+      document.getElementById('mariamEyeModal').style.display = 'flex';
+    }
+
+    window.closeMariamEyeModal = () => {
+      document.getElementById('mariamEyeModal').style.display = 'none';
+    }
+
     // Days Counter
     function updateDaysCount() {
       const startDate = new Date("2024-11-23");
@@ -2080,6 +2097,12 @@
     document.getElementById('imageModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('imageModal')) {
         closeModal();
+      }
+    });
+
+    document.getElementById('mariamEyeModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('mariamEyeModal')) {
+        closeMariamEyeModal();
       }
     });
 
