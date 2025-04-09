@@ -1561,7 +1561,7 @@
       </header>
       <div class="container">
         <div class="profile-header">
-          <img id="profileImage" src="https://i.imgur.com/ooTcD3h.jpg" alt="EYAD & MARIAM">
+          <img id="profileImage" src="https://imgur.com/ooTcD3h.jpg" alt="EYAD & MARIAM">
           <h3 class="profile-title">قصة حبنا</h3>
           <div class="bio">"حبنا بداية لا نهاية لها، ورحلة لا نريد لها أن تنتهي"</div>
         </div>
@@ -1734,9 +1734,6 @@
       if (name === 'eyad' || name === 'mariam') {
         username = name;
         currentUser = name === 'eyad' ? 'Eyad' : 'Maryam';
-        
-        // Update profile
-        document.getElementById('profileImage').src = avatars[name];
         
         // Hide login and show app
         document.getElementById('loginScreen').classList.add('hidden');
