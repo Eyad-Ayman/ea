@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>دفتر حبنا الأبدي | EYAD & MARIAM</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,6 +20,7 @@
       --counter-color: #b388ff;
     }
     
+    /* أنيميشن النبض */
     @keyframes heartbeat {
       0% { transform: scale(1); }
       25% { transform: scale(1.1); }
@@ -42,9 +43,10 @@
       background: linear-gradient(135deg, var(--black), var(--darker));
       color: white;
       overflow-x: hidden;
+      touch-action: manipulation;
     }
 
-    /* واجهة تسجيل الدخول المحسنة */
+    /* تحسينات واجهة تسجيل الدخول للهاتف */
     #loginScreen {
       display: flex;
       flex-direction: column;
@@ -60,6 +62,7 @@
       z-index: 2000;
       transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       overflow: hidden;
+      box-sizing: border-box;
     }
     
     #loginScreen::before {
@@ -83,8 +86,8 @@
     .login-container {
       background: rgba(18, 18, 18, 0.9);
       border-radius: 20px;
-      padding: 40px;
-      width: 100%;
+      padding: 30px 20px;
+      width: 90%;
       max-width: 400px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.5);
       border: 1px solid rgba(255,255,255,0.05);
@@ -92,6 +95,8 @@
       transform: scale(0.95);
       transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       text-align: center;
+      box-sizing: border-box;
+      margin-top: 20px;
     }
     
     #loginScreen.active .login-container {
@@ -99,9 +104,9 @@
     }
     
     .login-logo {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 20px;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
       background: linear-gradient(135deg, var(--primary-pink), var(--mauve));
       border-radius: 50%;
       display: flex;
@@ -109,17 +114,20 @@
       justify-content: center;
       box-shadow: 0 10px 25px rgba(255, 45, 110, 0.4);
       animation: float 6s ease-in-out infinite;
+      overflow: hidden;
+      border: 3px solid white;
     }
     
-    .login-logo i {
-      font-size: 40px;
-      color: white;
+    .login-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
     #loginScreen h2 {
       color: white;
       margin-bottom: 10px;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       background: linear-gradient(to right, #fff, #ffb6c1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -128,19 +136,19 @@
     
     .login-subtitle {
       color: #aaa;
-      margin-bottom: 30px;
-      font-size: 0.9rem;
+      margin-bottom: 25px;
+      font-size: 0.85rem;
     }
     
     .login-input-group {
       position: relative;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     
     #usernameInput {
       width: 100%;
-      padding: 15px 20px;
-      font-size: 1rem;
+      padding: 12px 15px;
+      font-size: 0.95rem;
       border-radius: 50px;
       border: none;
       background: rgba(255, 255, 255, 0.08);
@@ -148,6 +156,7 @@
       transition: all 0.3s;
       border: 1px solid rgba(255,255,255,0.1);
       text-align: center;
+      box-sizing: border-box;
     }
     
     #usernameInput:focus {
@@ -158,8 +167,8 @@
     
     #loginButton {
       width: 100%;
-      padding: 15px;
-      font-size: 1.1rem;
+      padding: 13px;
+      font-size: 1rem;
       background: linear-gradient(to right, var(--primary-pink), var(--mauve));
       color: white;
       border: none;
@@ -197,9 +206,9 @@
     }
     
     .login-footer {
-      margin-top: 30px;
+      margin-top: 25px;
       color: #666;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
 
     /* تأثيرات الهيدر */
@@ -226,7 +235,7 @@
     }
     
     .couple-name {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       margin: 0;
       background: linear-gradient(to right, #fff, #ffebf1);
       -webkit-background-clip: text;
@@ -240,11 +249,11 @@
     .romantic-quote {
       font-style: italic;
       text-align: center;
-      margin: 10px 0;
+      margin: 8px 0;
       color: #ffebf1;
       position: relative;
       z-index: 1;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     
@@ -253,7 +262,7 @@
       background: rgba(255,255,255,0.2);
       padding: 3px 10px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       margin-top: 5px;
       position: relative;
       z-index: 1;
@@ -262,12 +271,13 @@
     .container {
       padding: 15px;
       margin-bottom: 60px;
+      box-sizing: border-box;
     }
 
     textarea {
       width: 100%;
       padding: 10px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       border-radius: 10px;
       border: none;
       resize: none;
@@ -276,6 +286,8 @@
       color: white;
       transition: all 0.3s;
       position: relative;
+      min-height: 100px;
+      box-sizing: border-box;
     }
     
     textarea:focus {
@@ -289,7 +301,7 @@
       background: var(--primary-pink);
       border: none;
       padding: 12px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: white;
       border-radius: 10px;
       cursor: pointer;
@@ -297,6 +309,7 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
+      box-sizing: border-box;
     }
     
     button::before {
@@ -368,6 +381,12 @@
     .note-user {
       font-weight: bold;
       color: white;
+      font-size: 0.95rem;
+    }
+
+    .note-time {
+      font-size: 0.75rem;
+      color: #aaa;
     }
 
     .note-img {
@@ -378,6 +397,7 @@
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
       position: relative;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .note-img::after {
@@ -413,6 +433,7 @@
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
+      font-size: 0.9rem;
     }
     
     .note-reactions i:hover {
@@ -438,19 +459,21 @@
 
     .comment-input {
       width: 80%;
-      padding: 5px;
+      padding: 8px;
       border-radius: 5px;
       border: none;
       background: rgba(255, 255, 255, 0.1);
       color: white;
+      font-size: 0.85rem;
     }
 
     .comment-btn {
-      padding: 5px 10px;
+      padding: 8px 12px;
       background-color: var(--primary-pink);
       border: none;
       border-radius: 5px;
       color: white;
+      font-size: 0.85rem;
     }
 
     .comments {
@@ -459,11 +482,12 @@
 
     .comment {
       margin-top: 3px;
+      font-size: 0.85rem;
     }
 
     .story-thumb {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       border: 2px solid var(--primary-pink);
       box-shadow: 0 0 10px rgba(255, 45, 110, 0.5);
@@ -488,10 +512,10 @@
 
     .tab-button {
       flex: 1;
-      padding: 10px;
+      padding: 8px;
       text-align: center;
       color: #aaa;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
@@ -499,8 +523,8 @@
     
     .tab-button i {
       display: block;
-      margin-bottom: 5px;
-      font-size: 18px;
+      margin-bottom: 3px;
+      font-size: 16px;
       transition: all 0.3s;
     }
 
@@ -517,11 +541,11 @@
     .tab-button::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: -3px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
-      height: 3px;
+      height: 2px;
       background: var(--primary-pink);
       transition: all 0.3s;
     }
@@ -542,20 +566,21 @@
     .chat-box {
       background-color: rgba(28, 28, 28, 0.5);
       border-radius: 12px;
-      padding: 15px;
-      max-height: 400px;
+      padding: 12px;
+      max-height: 60vh;
       overflow-y: auto;
       margin-bottom: 10px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .message-container {
       display: flex;
       margin-bottom: 8px;
-      gap: 10px;
-      max-width: 80%;
+      gap: 8px;
+      max-width: 85%;
       align-self: flex-start;
     }
     
@@ -565,8 +590,8 @@
     }
     
     .msg-avatar {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       border: 2px solid var(--primary-pink);
       box-shadow: 0 0 8px rgba(255, 45, 110, 0.5);
@@ -574,27 +599,28 @@
     }
 
     .message {
-      border-radius: 15px;
-      padding: 10px 15px;
+      border-radius: 12px;
+      padding: 8px 12px;
       position: relative;
       word-wrap: break-word;
-      max-width: 70%;
+      max-width: 75%;
+      font-size: 0.9rem;
     }
     
     .message.me {
       background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
-      margin-left: 10px;
+      margin-left: 8px;
       border-bottom-right-radius: 0;
     }
     
     .message.other {
       background: linear-gradient(135deg, #333, #444);
-      margin-right: 10px;
+      margin-right: 8px;
       border-bottom-left-radius: 0;
     }
     
     .message-time {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: rgba(255,255,255,0.6);
       margin-top: 3px;
       text-align: right;
@@ -607,11 +633,11 @@
     /* تحسين مربع إدخال الرسالة */
     .input-area {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 25px;
-      padding: 8px 15px;
+      padding: 6px 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s;
     }
@@ -624,8 +650,8 @@
     
     #messageInput {
       flex: 1;
-      padding: 12px;
-      font-size: 1rem;
+      padding: 10px;
+      font-size: 0.95rem;
       border: none;
       background: transparent;
       color: white;
@@ -642,15 +668,16 @@
     
     #sendButton {
       width: auto;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      font-size: 0.9rem;
     }
     
     #sendButton i {
-      font-size: 16px;
+      font-size: 14px;
     }
 
     /* تصميم جديد لتبويب حبنا */
@@ -662,8 +689,8 @@
     .profile-header {
       position: relative;
       overflow: hidden;
-      padding: 30px 0;
-      margin-bottom: 20px;
+      padding: 25px 0;
+      margin-bottom: 15px;
       background: linear-gradient(135deg, rgba(255,45,110,0.3), rgba(179,136,255,0.3));
       border-radius: 0 0 20px 20px;
       box-shadow: 0 10px 30px rgba(255, 45, 110, 0.2);
@@ -677,7 +704,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('https://i.imgur.com/JqYeYn0.jpg') center/cover;
+      background: url('https://i.imgur.com/ooTcD3h.jpg') center/cover;
       opacity: 0.1;
       z-index: -1;
     }
@@ -694,13 +721,13 @@
     }
     
     #profileImage {
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 4px solid white;
       box-shadow: 0 0 20px rgba(255, 45, 110, 0.7),
                   0 0 40px rgba(179, 136, 255, 0.5);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       object-fit: cover;
       transition: all 0.5s;
     }
@@ -712,8 +739,8 @@
     }
     
     .profile-title {
-      font-size: 2.5rem;
-      margin: 10px 0;
+      font-size: 2rem;
+      margin: 8px 0;
       background: linear-gradient(to right, #fff, #ffb6c1);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -730,38 +757,38 @@
     
     .bio {
       text-align: center;
-      margin: 10px auto;
-      padding: 15px;
+      margin: 8px auto;
+      padding: 12px;
       color: #ffb6c1;
       font-style: italic;
-      font-size: 1.1rem;
-      max-width: 80%;
+      font-size: 1rem;
+      max-width: 90%;
       position: relative;
     }
     
     .bio::before, .bio::after {
       content: '"';
       color: var(--primary-pink);
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     
     .profile-stats {
       display: flex;
       justify-content: space-around;
-      margin: 20px auto;
-      padding: 20px;
+      margin: 15px auto;
+      padding: 15px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 15px;
       border: 1px solid rgba(255,255,255,0.1);
       box-shadow: 0 8px 25px rgba(255, 45, 110, 0.1);
-      max-width: 90%;
+      max-width: 95%;
       animation: slideUp 0.5s ease;
       backdrop-filter: blur(5px);
     }
     
     .profile-stats div {
       text-align: center;
-      padding: 10px;
+      padding: 8px;
       transition: all 0.3s;
       flex: 1;
       position: relative;
@@ -783,7 +810,7 @@
     }
     
     .profile-stats strong {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: var(--primary-pink);
       display: block;
       margin-bottom: 5px;
@@ -791,16 +818,16 @@
     }
     
     .profile-stats span {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #ccc;
     }
     
     .profile-section {
-      margin: 30px 0;
+      margin: 20px 0;
       animation: fadeIn 0.8s ease;
       background: rgba(18, 18, 18, 0.7);
       border-radius: 15px;
-      padding: 20px;
+      padding: 15px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       border: 1px solid rgba(255,255,255,0.05);
       position: relative;
@@ -820,33 +847,34 @@
     .profile-section h3 {
       color: white;
       border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 10px;
-      margin-bottom: 15px;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 1.3rem;
+      gap: 8px;
+      font-size: 1.1rem;
     }
     
     .profile-section h3 i {
       color: var(--primary-pink);
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       background: rgba(255,45,110,0.2);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.9rem;
     }
     
     .love-item {
       background: rgba(255, 255, 255, 0.05);
-      padding: 15px;
+      padding: 12px;
       border-radius: 10px;
-      margin: 15px 0;
+      margin: 12px 0;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       transition: all 0.3s;
       border-left: 3px solid var(--primary-pink);
       position: relative;
@@ -875,17 +903,17 @@
     
     .love-item i {
       color: var(--primary-pink);
-      font-size: 1.3rem;
-      min-width: 30px;
+      font-size: 1.1rem;
+      min-width: 26px;
       text-align: center;
     }
     
     /* قسم العبارة التي تربطنا */
     .couple-phrase {
       background: linear-gradient(135deg, rgba(255,45,110,0.2), rgba(179,136,255,0.2));
-      padding: 25px;
+      padding: 20px;
       border-radius: 15px;
-      margin: 25px 0;
+      margin: 20px 0;
       text-align: center;
       border: 1px solid rgba(255,255,255,0.1);
       position: relative;
@@ -899,19 +927,19 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://i.imgur.com/JqYeYn0.jpg') center/cover;
+      background: url('https://i.imgur.com/ooTcD3h.jpg') center/cover;
       opacity: 0.05;
       z-index: -1;
     }
     
     .couple-phrase h3 {
       color: white;
-      margin-bottom: 15px;
-      font-size: 1.3rem;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
     }
     
     .couple-phrase h3 i {
@@ -919,7 +947,7 @@
     }
     
     .couple-phrase p {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: white;
       margin: 0;
@@ -933,9 +961,9 @@
     .spotify-playlist {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       background: rgba(30, 215, 96, 0.1);
-      padding: 15px;
+      padding: 12px;
       border-radius: 10px;
       border-left: 3px solid #1ED760;
       transition: all 0.3s;
@@ -948,7 +976,7 @@
     
     .spotify-playlist i {
       color: #1ED760;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
     
     .spotify-playlist a {
@@ -956,6 +984,7 @@
       text-decoration: none;
       transition: all 0.3s;
       flex: 1;
+      font-size: 0.9rem;
     }
     
     .spotify-playlist a:hover {
@@ -964,17 +993,18 @@
 
     .baby-name {
       background: rgba(255, 45, 110, 0.2);
-      padding: 8px 20px;
+      padding: 6px 15px;
       border-radius: 20px;
       border: 1px solid var(--primary-pink);
       transition: all 0.3s;
       animation: bounceIn 0.5s ease;
-      margin: 5px;
+      margin: 4px;
       display: inline-block;
       color: white;
       font-weight: bold;
       position: relative;
       overflow: hidden;
+      font-size: 0.85rem;
     }
     
     .baby-name::before {
@@ -1024,6 +1054,7 @@
     .delete-note {
       margin-right: auto;
       color: var(--primary-pink);
+      font-size: 0.9rem;
     }
 
     #uploadedImage {
@@ -1033,6 +1064,7 @@
       margin-top: 10px;
       transition: opacity 0.3s;
       position: relative;
+      -webkit-tap-highlight-color: transparent;
     }
     
     #uploadedImage::after {
@@ -1065,6 +1097,7 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
+      font-size: 0.9rem;
     }
     
     .upload-label:hover {
@@ -1111,6 +1144,7 @@
       position: relative;
       border-radius: 10px;
       transition: all 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .profile-grid-item::before {
@@ -1153,19 +1187,21 @@
       z-index: 1000;
       align-items: center;
       justify-content: center;
+      touch-action: manipulation;
     }
     
     .modal-content {
-      max-width: 90%;
-      max-height: 90%;
+      max-width: 95%;
+      max-height: 95%;
       border-radius: 10px;
       box-shadow: 0 0 30px rgba(255, 45, 110, 0.5);
+      -webkit-tap-highlight-color: transparent;
     }
     
     .close-modal {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 15px;
+      right: 15px;
       color: white;
       font-size: 30px;
       cursor: pointer;
@@ -1177,6 +1213,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .close-modal:hover {
@@ -1307,11 +1344,11 @@
     /* تصميم جديد لمربع إدخال أسماء الأطفال */
     .baby-name-input-container {
       display: flex;
-      gap: 10px;
-      margin-top: 15px;
+      gap: 8px;
+      margin-top: 12px;
       background: rgba(255, 255, 255, 0.05);
       border-radius: 25px;
-      padding: 8px 15px;
+      padding: 6px 12px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s;
     }
@@ -1324,8 +1361,8 @@
     
     #newBabyName {
       flex: 1;
-      padding: 12px;
-      font-size: 1rem;
+      padding: 10px;
+      font-size: 0.95rem;
       border: none;
       background: transparent;
       color: white;
@@ -1342,21 +1379,105 @@
     
     .add-baby-name-btn {
       width: auto;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: linear-gradient(to right, var(--primary-pink), var(--mauve));
       color: white;
       border: none;
       cursor: pointer;
       transition: all 0.3s;
+      font-size: 0.9rem;
     }
     
     .add-baby-name-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(255, 45, 110, 0.4);
+    }
+    
+    /* دائرة التحميل */
+    .loader {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary-pink);
+      animation: spin 1s ease-in-out infinite;
+      z-index: 1001;
+    }
+    
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    /* تحسينات اللمس للهواتف */
+    @media (max-width: 768px) {
+      .couple-name {
+        font-size: 1.3rem;
+      }
+      
+      .romantic-quote {
+        font-size: 0.75rem;
+      }
+      
+      .days-counter {
+        font-size: 0.7rem;
+      }
+      
+      .profile-title {
+        font-size: 1.5rem;
+      }
+      
+      .bio {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+      
+      .couple-phrase p {
+        font-size: 1.1rem;
+      }
+      
+      .profile-stats strong {
+        font-size: 1.2rem;
+      }
+      
+      .profile-stats span {
+        font-size: 0.7rem;
+      }
+      
+      .love-item {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+      
+      .tab-button {
+        padding: 6px;
+        font-size: 11px;
+      }
+      
+      .tab-button i {
+        font-size: 14px;
+      }
+      
+      .message {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+      }
+      
+      .note-user {
+        font-size: 0.9rem;
+      }
+      
+      .note-time {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -1364,12 +1485,15 @@
   <!-- تأثير القلوب العائمة -->
   <div class="floating-hearts" id="floatingHearts"></div>
   
+  <!-- دائرة التحميل -->
+  <div class="loader" id="loader"></div>
+  
   <!-- واجهة تسجيل الدخول المحسنة -->
   <div id="loginScreen">
+    <div class="login-logo">
+      <img src="https://i.imgur.com/0gGLdYO.jpg" alt="EYAD & MARIAM">
+    </div>
     <div class="login-container">
-      <div class="login-logo">
-        <i class="fas fa-heart"></i>
-      </div>
       <h2>عالم حبنا</h2>
       <p class="login-subtitle">مكان خاص بنا فقط</p>
       
@@ -1437,7 +1561,7 @@
       </header>
       <div class="container">
         <div class="profile-header">
-          <img id="profileImage" src="https://i.imgur.com/JqYeYn0.jpg" alt="EYAD & MARIAM">
+          <img id="profileImage" src="https://i.imgur.com/ooTcD3h.jpg" alt="EYAD & MARIAM">
           <h3 class="profile-title">قصة حبنا</h3>
           <div class="bio">"حبنا بداية لا نهاية لها، ورحلة لا نريد لها أن تنتهي"</div>
         </div>
@@ -1465,7 +1589,7 @@
         
         <div class="profile-section">
           <h3><i class="fas fa-music"></i> أغانينا</h3>
-          <div class="love-item">
+          <div class="love-item" onclick="window.open('https://www.youtube.com/watch?v=naUqWQ-of6o', '_blank')">
             <i class="fas fa-music"></i>
             <span>Lovesong - Adele</span>
           </div>
@@ -1497,6 +1621,14 @@
               <i class="fas fa-plus"></i>
               <span>إضافة</span>
             </button>
+          </div>
+        </div>
+        
+        <div class="profile-section">
+          <h3><i class="fas fa-eye"></i> عيون مريم</h3>
+          <div class="love-item" onclick="openModal('https://imgur.com/05vI1hV')">
+            <i class="fas fa-eye"></i>
+            <span>انقر هنا لرؤية عيون مريم الجميلة</span>
           </div>
         </div>
         
@@ -1556,10 +1688,10 @@
     const babyNamesRef = ref(db, 'babyNames');
 
     const avatars = {
-      eyad: 'https://i.imgur.com/Yg6uBKW.png',
-      mariam: 'https://i.imgur.com/gUdU2Tx.png',
-      Eyad: 'https://i.imgur.com/Yg6uBKW.png',
-      maryam: 'https://i.imgur.com/gUdU2Tx.png'
+      eyad: 'https://i.imgur.com/MBaUC1B.jpg',
+      mariam: 'https://i.imgur.com/QvH7Tiy.jpg',
+      Eyad: 'https://i.imgur.com/MBaUC1B.jpg',
+      maryam: 'https://i.imgur.com/QvH7Tiy.jpg'
     };
 
     let username = '';
@@ -1583,6 +1715,11 @@
     
     createHearts();
 
+    // عرض/إخفاء دائرة التحميل
+    function showLoader(show) {
+      document.getElementById('loader').style.display = show ? 'block' : 'none';
+    }
+
     // Login System
     document.getElementById('loginButton').addEventListener('click', () => {
       const input = document.getElementById('usernameInput');
@@ -1592,18 +1729,20 @@
         username = name;
         currentUser = name === 'eyad' ? 'Eyad' : 'Maryam';
         
-        // Update profile
-        document.getElementById('profileImage').src = avatars[name];
-        
+        // لا نقوم بتحديث صورة البروفايل هنا لأننا نريدها ثابتة في صفحة حبنا فقط
         // Hide login and show app
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('appContent').classList.remove('hidden');
         
-        // Load all data
-        loadNotes();
-        loadMessages();
-        loadBabyNames();
-        updateDaysCount();
+        // Load all data with loading indicator
+        showLoader(true);
+        setTimeout(() => {
+          loadNotes();
+          loadMessages();
+          loadBabyNames();
+          updateDaysCount();
+          showLoader(false);
+        }, 1000);
         
         // Play background music
         document.getElementById('bgMusic').play().catch(e => console.log('Auto-play prevented:', e));
@@ -1671,12 +1810,15 @@
         likes: 0
       };
 
-      push(notesRef, note);
-      document.getElementById("loveNote").value = "";
-      document.getElementById("uploadedImage").style.display = "none";
-      document.getElementById("uploadedImage").src = "";
-      postsCount++;
-      document.getElementById('postsCount').textContent = postsCount;
+      showLoader(true);
+      push(notesRef, note).then(() => {
+        document.getElementById("loveNote").value = "";
+        document.getElementById("uploadedImage").style.display = "none";
+        document.getElementById("uploadedImage").src = "";
+        postsCount++;
+        document.getElementById('postsCount').textContent = postsCount;
+        showLoader(false);
+      });
     };
 
     window.previewImage = (event) => {
@@ -1699,6 +1841,7 @@
     };
 
     function loadNotes() {
+      showLoader(true);
       onValue(notesRef, (snapshot) => {
         const data = snapshot.val();
         const feed = document.getElementById("notesFeed");
@@ -1775,6 +1918,7 @@
           feed.innerHTML = '<div class="no-notes">لا توجد منشورات بعد، ابدأ بكتابة أول رسالة حب!</div>';
         }
         document.getElementById('postsCount').textContent = postsCount;
+        showLoader(false);
       });
     }
 
@@ -1813,6 +1957,7 @@
 
     // Messages System
     function loadMessages() {
+      showLoader(true);
       onValue(messagesRef, (snapshot) => {
         const data = snapshot.val();
         const chatBox = document.getElementById("chatBox");
@@ -1836,6 +1981,7 @@
           });
           chatBox.scrollTop = chatBox.scrollHeight;
         }
+        showLoader(false);
       });
     }
 
@@ -1871,6 +2017,7 @@
 
     // Baby Names System
     function loadBabyNames() {
+      showLoader(true);
       onValue(babyNamesRef, (snapshot) => {
         const data = snapshot.val();
         const namesContainer = document.getElementById('babyNames');
@@ -1893,6 +2040,7 @@
             namesContainer.appendChild(nameElement);
           });
         }
+        showLoader(false);
       });
     }
 
@@ -1900,8 +2048,11 @@
       const input = document.getElementById('newBabyName');
       const name = input.value.trim();
       if (name) {
-        push(babyNamesRef, name);
-        input.value = '';
+        showLoader(true);
+        push(babyNamesRef, name).then(() => {
+          input.value = '';
+          showLoader(false);
+        });
       }
     }
 
@@ -1931,6 +2082,9 @@
         closeModal();
       }
     });
+
+    // تحسين تجربة اللمس للهواتف
+    document.addEventListener('touchstart', function() {}, {passive: true});
   </script>
 </body>
 </html>
