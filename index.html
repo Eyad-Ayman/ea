@@ -16,7 +16,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -24,12 +23,11 @@
             padding: 30px;
             border-radius: 15px;
             max-width: 500px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
         .hidden {
             display: none;
         }
-        #blockMessage {
+        #blockScreen {
             position: fixed;
             top: 0;
             left: 0;
@@ -48,58 +46,46 @@
     <!-- المحتوى الرئيسي -->
     <div class="container" id="mainContent">
         <h1>EYAD & MARIAM 💖</h1>
-        <p>مرحبًا! هذه الزيارة الوحيدة المسموح بها لك.</p>
-        <p>سيتم منع أي محاولة لتحديث الصفحة.</p>
+        <p>مرحبًا! هذه الزيارة الوحيدة المسموح بها.</p>
     </div>
 
-    <!-- رسالة المنع -->
-    <div id="blockMessage" class="hidden">
-        <h2>❌ تم منع الوصول!</h2>
-        <p>هذه الصفحة لا تسمح بالتحديث أو إعادة الفتح.</p>
-        <p>يجب فتحها من جديد عبر الرابط الأصلي.</p>
+    <!-- شاشة المنع -->
+    <div id="blockScreen" class="hidden">
+        <h2>⛔ الوصول ممنوع!</h2>
+        <p>لا يمكنك تحديث الصفحة أو إعادة فتحها.</p>
+        <p>يجب الدخول عبر الرابط الأصلي.</p>
     </div>
 
     <script>
-        // تحقق مما إذا كانت هذه أول زيارة
-        function checkFirstVisit() {
-            const isFirstVisit = !sessionStorage.getItem('visited');
-            
-            if (isFirstVisit) {
-                sessionStorage.setItem('visited', 'true');
-                localStorage.setItem('allow_access', 'true');
-            } else {
-                localStorage.removeItem('allow_access');
-                showBlockMessage();
+        // تحقق من وجود علامة في الرابط
+        function checkAccess() {
+            const url = new URL(window.location.href);
+            const hasToken = url.searchParams.has('token');
+
+            // إذا كان الرابط يحتوي على Token (الزيارة الأولى)
+            if (hasToken) {
+                // أضف علامة في localStorage لمنع إعادة الدخول
+                localStorage.setItem('visited', 'true');
+                // أزل الـ Token من الرابط لمنع المشاركة
+                url.searchParams.delete('token');
+                window.history.replaceState({}, '', url);
+            } 
+            // إذا تم التحديث أو إعادة الفتح
+            else if (localStorage.getItem('visited')) {
+                showBlockScreen();
             }
         }
 
-        // منع التحديث باستخدام localStorage
-        function preventRefresh() {
-            if (!localStorage.getItem('allow_access')) {
-                showBlockMessage();
-            }
-        }
-
-        // عرض رسالة المنع
-        function showBlockMessage() {
+        function showBlockScreen() {
             document.getElementById('mainContent').classList.add('hidden');
-            document.getElementById('blockMessage').classList.remove('hidden');
+            document.getElementById('blockScreen').classList.remove('hidden');
             
             // منع أي تفاعل مع الصفحة
             document.body.style.pointerEvents = 'none';
         }
 
-        // منع حدث التحديث
-        window.addEventListener('beforeunload', function(e) {
-            localStorage.removeItem('allow_access');
-            sessionStorage.removeItem('visited');
-        });
-
         // عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', () => {
-            checkFirstVisit();
-            preventRefresh();
-        });
+        document.addEventListener('DOMContentLoaded', checkAccess);
     </script>
 </body>
 </html>
