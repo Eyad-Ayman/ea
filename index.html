@@ -1628,6 +1628,346 @@
       opacity: 0.9;
     }
     
+    /* أنماط الألعاب */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .game-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 5px 15px rgba(255, 45, 110, 0.2);
+    }
+
+    .game-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .game-info {
+      flex: 1;
+    }
+
+    .game-info h4 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: white;
+    }
+
+    .game-info p {
+      margin: 3px 0 0;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+
+    /* منطقة اللعبة */
+    #gameArea {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--black);
+      z-index: 100;
+      padding: 15px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+
+    .game-header h3 {
+      margin: 0;
+      color: white;
+      flex: 1;
+      text-align: center;
+    }
+
+    .exit-game-btn {
+      width: auto;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.85rem;
+    }
+
+    /* لعبة إكس-أو */
+    .tic-tac-toe {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin: 20px auto;
+      max-width: 300px;
+    }
+
+    .tic-tac-toe-cell {
+      aspect-ratio: 1;
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tic-tac-toe-cell:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .tic-tac-toe-cell.x {
+      color: var(--primary-pink);
+    }
+
+    .tic-tac-toe-cell.o {
+      color: var(--mauve);
+    }
+
+    .game-status {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .reset-game-btn {
+      display: block;
+      margin: 15px auto 0;
+      width: auto;
+      padding: 10px 20px;
+    }
+
+    /* لعبة تكوين الكلمات */
+    .word-scramble-container {
+      text-align: center;
+    }
+
+    .scrambled-word {
+      font-size: 2rem;
+      letter-spacing: 5px;
+      margin: 20px 0;
+      color: white;
+    }
+
+    .word-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.2rem;
+      text-align: center;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .word-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+
+    .word-stat {
+      text-align: center;
+    }
+
+    .word-stat h4 {
+      margin: 0;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .word-stat p {
+      margin: 5px 0 0;
+      color: var(--primary-pink);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    /* لعبة الذاكرة */
+    .memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px auto;
+      max-width: 350px;
+    }
+
+    .memory-card {
+      aspect-ratio: 1;
+      background: var(--primary-pink);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    .memory-card.flipped {
+      background: white;
+      transform: rotateY(180deg);
+    }
+
+    .memory-card.matched {
+      visibility: hidden;
+    }
+
+    /* لعبة المسابقة */
+    .trivia-question {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .trivia-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .trivia-option {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .trivia-option:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .trivia-option.correct {
+      background: rgba(76, 175, 80, 0.3);
+      border-left: 4px solid #4CAF50;
+    }
+
+    .trivia-option.wrong {
+      background: rgba(244, 67, 54, 0.3);
+      border-left: 4px solid #F44336;
+    }
+
+    .trivia-result {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    /* لعبة الرسم */
+    .drawing-area {
+      background: white;
+      border-radius: 10px;
+      margin: 15px 0;
+      position: relative;
+      touch-action: none;
+    }
+
+    #drawingCanvas {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .drawing-tools {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .drawing-tool {
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    .drawing-tool.active {
+      background: var(--primary-pink);
+    }
+
+    .drawing-word {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 10px 0;
+      color: white;
+    }
+
+    /* لعبة اختبار الحب */
+    .couple-quiz {
+      text-align: center;
+    }
+
+    .quiz-question {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .quiz-option {
+      background: rgba(255,255,255,0.1);
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .quiz-option:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .quiz-result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: var(--primary-pink);
+    }
+
     /* تحسينات اللمس للهواتف */
     @media (max-width: 768px) {
       .couple-name {
@@ -1717,6 +2057,24 @@
       
       .login-card p {
         font-size: 0.8rem;
+      }
+      
+      /* تعديلات الألعاب للهواتف */
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .tic-tac-toe {
+        max-width: 250px;
+      }
+      
+      .memory-game {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 280px;
+      }
+      
+      .drawing-word {
+        font-size: 1.2rem;
       }
     }
   </style>
@@ -1823,7 +2181,171 @@
       </div>
     </div>
 
-    <!-- Tab 3: Profile -->
+    <!-- Tab 3: Games -->
+    <div class="tab-content" id="tab-games">
+      <header>
+        <h1 class="couple-name">EYAD & MARIAM</h1>
+        <p class="romantic-quote">"اللعب معًا يجعل حبنا أكثر متعة وإثارة"</p>
+      </header>
+      <div class="container">
+        <!-- قسم الألعاب الأونلاين -->
+        <div class="profile-section">
+          <h3><i class="fas fa-globe"></i> ألعاب أونلاين (عن بعد)</h3>
+          <div class="games-grid">
+            <!-- لعبة 1 -->
+            <div class="game-card" onclick="window.open('https://skribbl.io/', '_blank')">
+              <div class="game-icon" style="background-color: #FF6B6B;">
+                <i class="fas fa-pencil-alt"></i>
+              </div>
+              <div class="game-info">
+                <h4>Skribbl.io</h4>
+                <p>ارسم وخمن الرسمة معًا</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 2 -->
+            <div class="game-card" onclick="window.open('https://garticphone.com/', '_blank')">
+              <div class="game-icon" style="background-color: #4ECDC4;">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="game-info">
+                <h4>Gartic Phone</h4>
+                <p>لعبة الرسم والتخمين الممتعة</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 3 -->
+            <div class="game-card" onclick="window.open('https://boardgamearena.com/', '_blank')">
+              <div class="game-icon" style="background-color: #45B7D1;">
+                <i class="fas fa-chess-board"></i>
+              </div>
+              <div class="game-info">
+                <h4>Board Game Arena</h4>
+                <p>مجموعة كبيرة من ألعاب الطاولة</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 4 -->
+            <div class="game-card" onclick="window.open('https://www.chess.com/play/online', '_blank')">
+              <div class="game-icon" style="background-color: #A37EBA;">
+                <i class="fas fa-chess"></i>
+              </div>
+              <div class="game-info">
+                <h4>Chess.com</h4>
+                <p>لعبة الشطرنج الكلاسيكية</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 5 -->
+            <div class="game-card" onclick="window.open('https://scattergoriesonline.net/', '_blank')">
+              <div class="game-icon" style="background-color: #FFA07A;">
+                <i class="fas fa-font"></i>
+              </div>
+              <div class="game-info">
+                <h4>Scattergories</h4>
+                <p>اختر كلمات تناسب الفئة والحرف</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 6 -->
+            <div class="game-card" onclick="window.open('https://psych.game/', '_blank')">
+              <div class="game-icon" style="background-color: #98D8C8;">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="game-info">
+                <h4>Psych!</h4>
+                <p>أجوبة مضحكة وأسئلة غريبة</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- قسم الألعاب على نفس الجهاز -->
+        <div class="profile-section">
+          <h3><i class="fas fa-mobile-alt"></i> ألعاب على نفس الجهاز</h3>
+          <div class="games-grid">
+            <!-- لعبة 1 -->
+            <div class="game-card" onclick="startGame('ticTacToe')">
+              <div class="game-icon" style="background-color: #F06292;">
+                <i class="fas fa-times"></i>
+              </div>
+              <div class="game-info">
+                <h4>إكس-أو (X-O)</h4>
+                <p>لعبة الذكاء الكلاسيكية</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 2 -->
+            <div class="game-card" onclick="startGame('wordScramble')">
+              <div class="game-icon" style="background-color: #7986CB;">
+                <i class="fas fa-font"></i>
+              </div>
+              <div class="game-info">
+                <h4>تكوين الكلمات</h4>
+                <p>كون أكبر عدد من الكلمات</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 3 -->
+            <div class="game-card" onclick="startGame('memoryGame')">
+              <div class="game-icon" style="background-color: #4DB6AC;">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="game-info">
+                <h4>لعبة الذاكرة</h4>
+                <p>ابحث عن الأزواج المتطابقة</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 4 -->
+            <div class="game-card" onclick="startGame('triviaGame')">
+              <div class="game-icon" style="background-color: #FFB74D;">
+                <i class="fas fa-question-circle"></i>
+              </div>
+              <div class="game-info">
+                <h4>مسابقة ثقافية</h4>
+                <p>اختبر معلوماتك معًا</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 5 -->
+            <div class="game-card" onclick="startGame('drawingGame')">
+              <div class="game-icon" style="background-color: #BA68C8;">
+                <i class="fas fa-paint-brush"></i>
+              </div>
+              <div class="game-info">
+                <h4>ارسم وخمن</h4>
+                <p>ارسم الكلمة ودع شريكك يخمنها</p>
+              </div>
+            </div>
+            
+            <!-- لعبة 6 -->
+            <div class="game-card" onclick="startGame('coupleQuiz')">
+              <div class="game-icon" style="background-color: #FF8A65;">
+                <i class="fas fa-heart"></i>
+              </div>
+              <div class="game-info">
+                <h4>اختبار الحب</h4>
+                <p>كم تعرف عن شريكك؟</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- منطقة عرض اللعبة المحددة -->
+        <div id="gameArea" class="hidden">
+          <div class="game-header">
+            <button onclick="exitGame()" class="exit-game-btn">
+              <i class="fas fa-arrow-left"></i> رجوع
+            </button>
+            <h3 id="gameTitle"></h3>
+          </div>
+          <div id="gameContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Profile -->
     <div class="tab-content" id="tab-profile">
       <header>
         <h1 class="couple-name">EYAD & MARIAM</h1>
@@ -1918,6 +2440,10 @@
       <div class="tab-button" data-tab="tab-messages">
         <i class="fas fa-comments"></i>
         محادثتنا
+      </div>
+      <div class="tab-button" data-tab="tab-games">
+        <i class="fas fa-gamepad"></i>
+        ألعابنا
       </div>
       <div class="tab-button" data-tab="tab-profile">
         <i class="fas fa-heart"></i>
@@ -2075,6 +2601,12 @@
         const newUrl = window.location.pathname + '?' + urlParams.toString();
         window.history.replaceState({}, '', newUrl);
         
+        // ضع علامة في localStorage
+        localStorage.setItem('valid_access', 'true');
+        return true;
+      }
+      // إذا كان هناك تخزين محلي صالح
+      else if (localStorage.getItem('valid_access')) {
         return true;
       }
       // إذا لم يكن هناك توكن صالح
@@ -2097,8 +2629,7 @@
 
       // منع التحديث
       window.addEventListener('beforeunload', function(e) {
-        e.preventDefault();
-        e.returnValue = '';
+        localStorage.removeItem('valid_access');
       });
     }
 
@@ -2549,6 +3080,660 @@
       const today = new Date();
       const diff = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
       document.getElementById("daysCount").textContent = diff;
+    }
+
+    // نظام الألعاب
+    const games = {
+      ticTacToe: {
+        title: "إكس-أو (X-O)",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          let gameHtml = `
+            <div class="game-status">دور: <span id="currentPlayer">X</span></div>
+            <div class="tic-tac-toe" id="ticTacToeBoard"></div>
+            <button class="reset-game-btn" onclick="resetTicTacToe()">إعادة اللعب</button>
+          `;
+          
+          document.getElementById('gameContent').innerHTML = gameHtml;
+          
+          // إنشاء لوحة اللعب
+          const board = document.getElementById('ticTacToeBoard');
+          board.innerHTML = '';
+          
+          for (let i = 0; i < 9; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'tic-tac-toe-cell';
+            cell.dataset.index = i;
+            cell.addEventListener('click', handleTicTacToeClick);
+            board.appendChild(cell);
+          }
+          
+          // تهيئة حالة اللعبة
+          window.ticTacToeState = {
+            board: Array(9).fill(''),
+            currentPlayer: 'X',
+            gameOver: false
+          };
+        }
+      },
+      
+      wordScramble: {
+        title: "تكوين الكلمات",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          
+          const words = [
+            'حب', 'رومانسية', 'قبلة', 'زوج', 'زوجة', 'علاقة', 'عاطفة', 
+            'راحة', 'تفاهم', 'التزام', 'وفاء', 'شغف', 'هيام', 'غرام'
+          ];
+          
+          window.currentWord = words[Math.floor(Math.random() * words.length)];
+          window.scrambledWord = scrambleWord(window.currentWord);
+          window.guesses = 0;
+          
+          let gameHtml = `
+            <div class="word-scramble-container">
+              <p>حاول تكوين كلمة من هذه الأحرف:</p>
+              <div class="scrambled-word">${window.scrambledWord}</div>
+              <input type="text" class="word-input" id="wordGuess" placeholder="اكتب تخمينك هنا">
+              <button onclick="checkWordGuess()" class="reset-game-btn">تحقق</button>
+              
+              <div class="word-stats">
+                <div class="word-stat">
+                  <h4>عدد المحاولات</h4>
+                  <p id="guessCount">0</p>
+                </div>
+                <div class="word-stat">
+                  <h4>الكلمة الصحيحة</h4>
+                  <p id="correctWord" class="hidden">${window.currentWord}</p>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          document.getElementById('gameContent').innerHTML = gameHtml;
+          document.getElementById('wordGuess').focus();
+        }
+      },
+      
+      memoryGame: {
+        title: "لعبة الذاكرة",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          
+          const emojis = ['❤️', '💕', '💘', '💖', '💗', '💓', '💞', '💝'];
+          const cards = [...emojis, ...emojis];
+          shuffleArray(cards);
+          
+          window.memoryGameState = {
+            cards: cards,
+            flippedCards: [],
+            matchedCards: [],
+            canFlip: true
+          };
+          
+          let gameHtml = `
+            <div class="memory-game" id="memoryGameBoard"></div>
+            <div class="game-status" id="memoryGameStatus">
+              الأزواج المطابقة: <span id="matchedPairs">0</span> / 8
+            </div>
+            <button class="reset-game-btn" onclick="resetMemoryGame()">إعادة اللعب</button>
+          `;
+          
+          document.getElementById('gameContent').innerHTML = gameHtml;
+          
+          // إنشاء لوحة اللعب
+          const board = document.getElementById('memoryGameBoard');
+          board.innerHTML = '';
+          
+          cards.forEach((emoji, index) => {
+            const card = document.createElement('div');
+            card.className = 'memory-card';
+            card.dataset.index = index;
+            card.dataset.emoji = emoji;
+            card.innerHTML = '<span class="hidden">' + emoji + '</span>';
+            card.addEventListener('click', handleMemoryCardClick);
+            board.appendChild(card);
+          });
+        }
+      },
+      
+      triviaGame: {
+        title: "مسابقة ثقافية",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          
+          const questions = [
+            {
+              question: "ما هي عاصمة فرنسا؟",
+              options: ["لندن", "برلين", "باريس", "روما"],
+              answer: 2
+            },
+            {
+              question: "كم عدد أيام السنة الكبيسة؟",
+              options: ["365", "366", "364", "360"],
+              answer: 1
+            },
+            {
+              question: "ما هو أطول نهر في العالم؟",
+              options: ["النيل", "الأمازون", "الميسيسيبي", "الدانوب"],
+              answer: 0
+            }
+          ];
+          
+          window.triviaState = {
+            questions: questions,
+            currentQuestion: 0,
+            score: 0
+          };
+          
+          loadTriviaQuestion();
+        }
+      },
+      
+      drawingGame: {
+        title: "ارسم وخمن",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          
+          const words = ['قلب', 'وردة', 'منزل', 'شجرة', 'سيارة', 'شمس', 'قمر', 'كتاب'];
+          window.drawingWord = words[Math.floor(Math.random() * words.length)];
+          
+          let gameHtml = `
+            <div class="drawing-word">ارسم: <span id="wordToDraw">${window.drawingWord}</span></div>
+            <div class="drawing-area">
+              <canvas id="drawingCanvas"></canvas>
+            </div>
+            <div class="drawing-tools">
+              <div class="drawing-tool active" data-size="3" onclick="setDrawingTool(this, 'pencil')">
+                <i class="fas fa-pencil-alt"></i> قلم رصاص
+              </div>
+              <div class="drawing-tool" data-size="10" onclick="setDrawingTool(this, 'marker')">
+                <i class="fas fa-highlighter"></i> ماركر
+              </div>
+              <div class="drawing-tool" onclick="clearDrawingCanvas()">
+                <i class="fas fa-trash-alt"></i> مسح
+              </div>
+            </div>
+            <button class="reset-game-btn" onclick="newDrawingWord()">كلمة جديدة</button>
+          `;
+          
+          document.getElementById('gameContent').innerHTML = gameHtml;
+          
+          // تهيئة لوحة الرسم
+          const canvas = document.getElementById('drawingCanvas');
+          const ctx = canvas.getContext('2d');
+          
+          // ضبط حجم الكانفاس
+          canvas.width = canvas.offsetWidth;
+          canvas.height = canvas.offsetHeight;
+          
+          // تهيئة حالة الرسم
+          window.drawingState = {
+            isDrawing: false,
+            lastX: 0,
+            lastY: 0,
+            tool: 'pencil',
+            size: 3,
+            color: '#000000'
+          };
+          
+          // إضافة مستمعات الأحداث
+          canvas.addEventListener('mousedown', startDrawing);
+          canvas.addEventListener('mousemove', draw);
+          canvas.addEventListener('mouseup', stopDrawing);
+          canvas.addEventListener('mouseout', stopDrawing);
+          
+          // للشاشات التي تعمل باللمس
+          canvas.addEventListener('touchstart', handleTouchStart);
+          canvas.addEventListener('touchmove', handleTouchMove);
+          canvas.addEventListener('touchend', stopDrawing);
+        }
+      },
+      
+      coupleQuiz: {
+        title: "اختبار الحب",
+        start: function() {
+          document.getElementById('gameTitle').textContent = this.title;
+          
+          const questions = [
+            {
+              question: "ما هو لون عيون شريكك المفضل؟",
+              options: ["بني", "أزرق", "أخضر", "أسود"]
+            },
+            {
+              question: "ما هو طبق شريكك المفضل؟",
+              options: ["بيتزا", "باستا", "شوربة", "سلطة"]
+            },
+            {
+              question: "في أي فصل قابلت شريكك لأول مرة؟",
+              options: ["شتاء", "ربيع", "صيف", "خريف"]
+            }
+          ];
+          
+          window.coupleQuizState = {
+            questions: questions,
+            currentQuestion: 0,
+            answers: []
+          };
+          
+          loadCoupleQuizQuestion();
+        }
+      }
+    };
+
+    // دوال مساعدة للألعاب
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function scrambleWord(word) {
+      return shuffleArray(word.split('')).join('');
+    }
+
+    // بدء لعبة محددة
+    function startGame(gameId) {
+      document.getElementById('appContent').classList.add('hidden');
+      document.getElementById('gameArea').classList.remove('hidden');
+      games[gameId].start();
+    }
+
+    // الخروج من اللعبة
+    function exitGame() {
+      document.getElementById('gameArea').classList.add('hidden');
+      document.getElementById('appContent').classList.remove('hidden');
+      document.getElementById('gameContent').innerHTML = '';
+    }
+
+    // دوال لعبة إكس-أو
+    function handleTicTacToeClick(e) {
+      const cell = e.target;
+      const index = cell.dataset.index;
+      const state = window.ticTacToeState;
+      
+      if (state.board[index] !== '' || state.gameOver) return;
+      
+      state.board[index] = state.currentPlayer;
+      cell.textContent = state.currentPlayer;
+      cell.classList.add(state.currentPlayer.toLowerCase());
+      
+      if (checkTicTacToeWin(state.currentPlayer)) {
+        document.querySelector('.game-status').textContent = `الفائز هو: ${state.currentPlayer}`;
+        state.gameOver = true;
+        return;
+      }
+      
+      if (checkTicTacToeDraw()) {
+        document.querySelector('.game-status').textContent = 'تعادل!';
+        state.gameOver = true;
+        return;
+      }
+      
+      state.currentPlayer = state.currentPlayer === 'X' ? 'O' : 'X';
+      document.getElementById('currentPlayer').textContent = state.currentPlayer;
+    }
+
+    function checkTicTacToeWin(player) {
+      const b = window.ticTacToeState.board;
+      const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // صفوف
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // أعمدة
+        [0, 4, 8], [2, 4, 6]             // قطرات
+      ];
+      
+      return winPatterns.some(pattern => 
+        pattern.every(index => b[index] === player)
+      );
+    }
+
+    function checkTicTacToeDraw() {
+      return window.ticTacToeState.board.every(cell => cell !== '');
+    }
+
+    function resetTicTacToe() {
+      const cells = document.querySelectorAll('.tic-tac-toe-cell');
+      cells.forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('x', 'o');
+      });
+      
+      window.ticTacToeState = {
+        board: Array(9).fill(''),
+        currentPlayer: 'X',
+        gameOver: false
+      };
+      
+      document.querySelector('.game-status').innerHTML = 'دور: <span id="currentPlayer">X</span>';
+    }
+
+    // دوال لعبة تكوين الكلمات
+    function checkWordGuess() {
+      const guess = document.getElementById('wordGuess').value.trim();
+      if (!guess) return;
+      
+      window.guesses++;
+      document.getElementById('guessCount').textContent = window.guesses;
+      
+      if (guess === window.currentWord) {
+        showNotification('أحسنت! لقد وجدت الكلمة الصحيحة');
+        document.getElementById('correctWord').classList.remove('hidden');
+        document.getElementById('wordGuess').disabled = true;
+      } else {
+        showNotification('ليس صحيحًا، حاول مرة أخرى!');
+        document.getElementById('wordGuess').value = '';
+        document.getElementById('wordGuess').focus();
+      }
+    }
+
+    // دوال لعبة الذاكرة
+    function handleMemoryCardClick(e) {
+      const card = e.target.closest('.memory-card');
+      const index = card.dataset.index;
+      const state = window.memoryGameState;
+      
+      if (!state.canFlip || state.flippedCards.includes(index) || state.matchedCards.includes(index)) return;
+      
+      // قلب الكارت
+      card.classList.add('flipped');
+      card.querySelector('span').classList.remove('hidden');
+      state.flippedCards.push(index);
+      
+      if (state.flippedCards.length === 2) {
+        state.canFlip = false;
+        const [firstIndex, secondIndex] = state.flippedCards;
+        const firstCard = document.querySelector(`.memory-card[data-index="${firstIndex}"]`);
+        const secondCard = document.querySelector(`.memory-card[data-index="${secondIndex}"]`);
+        
+        if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
+          // تطابق
+          state.matchedCards.push(firstIndex, secondIndex);
+          state.flippedCards = [];
+          state.canFlip = true;
+          
+          document.getElementById('matchedPairs').textContent = state.matchedCards.length / 2;
+          
+          if (state.matchedCards.length === state.cards.length) {
+            showNotification('مبروك! لقد أكملت اللعبة بنجاح');
+          }
+        } else {
+          // لا يوجد تطابق
+          setTimeout(() => {
+            firstCard.classList.remove('flipped');
+            secondCard.classList.remove('flipped');
+            firstCard.querySelector('span').classList.add('hidden');
+            secondCard.querySelector('span').classList.add('hidden');
+            state.flippedCards = [];
+            state.canFlip = true;
+          }, 1000);
+        }
+      }
+    }
+
+    function resetMemoryGame() {
+      const cards = document.querySelectorAll('.memory-card');
+      cards.forEach(card => {
+        card.classList.remove('flipped', 'matched');
+        card.querySelector('span').classList.add('hidden');
+      });
+      
+      const emojis = ['❤️', '💕', '💘', '💖', '💗', '💓', '💞', '💝'];
+      const newCards = [...emojis, ...emojis];
+      shuffleArray(newCards);
+      
+      window.memoryGameState = {
+        cards: newCards,
+        flippedCards: [],
+        matchedCards: [],
+        canFlip: true
+      };
+      
+      cards.forEach((card, index) => {
+        card.dataset.emoji = newCards[index];
+      });
+      
+      document.getElementById('matchedPairs').textContent = '0';
+    }
+
+    // دوال لعبة المسابقة
+    function loadTriviaQuestion() {
+      const state = window.triviaState;
+      const question = state.questions[state.currentQuestion];
+      
+      let optionsHtml = question.options.map((opt, i) => `
+        <div class="trivia-option" onclick="checkTriviaAnswer(${i})">
+          ${opt}
+        </div>
+      `).join('');
+      
+      let gameHtml = `
+        <div class="trivia-question">
+          <h3>${question.question}</h3>
+        </div>
+        <div class="trivia-options">
+          ${optionsHtml}
+        </div>
+        <div class="trivia-result hidden" id="triviaResult"></div>
+      `;
+      
+      document.getElementById('gameContent').innerHTML = gameHtml;
+    }
+
+    function checkTriviaAnswer(answerIndex) {
+      const state = window.triviaState;
+      const question = state.questions[state.currentQuestion];
+      const options = document.querySelectorAll('.trivia-option');
+      
+      options.forEach((opt, i) => {
+        if (i === question.answer) {
+          opt.classList.add('correct');
+        } else if (i === answerIndex) {
+          opt.classList.add('wrong');
+        }
+        opt.style.pointerEvents = 'none';
+      });
+      
+      const resultDiv = document.getElementById('triviaResult');
+      resultDiv.classList.remove('hidden');
+      
+      if (answerIndex === question.answer) {
+        state.score++;
+        resultDiv.textContent = 'إجابة صحيحة!';
+      } else {
+        resultDiv.textContent = 'إجابة خاطئة!';
+      }
+      
+      setTimeout(() => {
+        state.currentQuestion++;
+        if (state.currentQuestion < state.questions.length) {
+          loadTriviaQuestion();
+        } else {
+          showTriviaResults();
+        }
+      }, 1500);
+    }
+
+    function showTriviaResults() {
+      const state = window.triviaState;
+      const percentage = Math.round((state.score / state.questions.length) * 100);
+      
+      let gameHtml = `
+        <div class="trivia-result">
+          <h3>نتيجتك النهائية</h3>
+          <p>لقد أجبت بشكل صحيح على ${state.score} من ${state.questions.length} أسئلة</p>
+          <p>النسبة المئوية: ${percentage}%</p>
+          <button class="reset-game-btn" onclick="resetTriviaGame()">العب مرة أخرى</button>
+        </div>
+      `;
+      
+      document.getElementById('gameContent').innerHTML = gameHtml;
+    }
+
+    function resetTriviaGame() {
+      window.triviaState = {
+        questions: window.triviaState.questions,
+        currentQuestion: 0,
+        score: 0
+      };
+      
+      loadTriviaQuestion();
+    }
+
+    // دوال لعبة الرسم
+    function startDrawing(e) {
+      const canvas = document.getElementById('drawingCanvas');
+      const rect = canvas.getBoundingClientRect();
+      window.drawingState.isDrawing = true;
+      window.drawingState.lastX = e.clientX - rect.left;
+      window.drawingState.lastY = e.clientY - rect.top;
+    }
+
+    function draw(e) {
+      if (!window.drawingState.isDrawing) return;
+      
+      const canvas = document.getElementById('drawingCanvas');
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      const currentX = e.clientX - rect.left;
+      const currentY = e.clientY - rect.top;
+      
+      ctx.beginPath();
+      ctx.moveTo(window.drawingState.lastX, window.drawingState.lastY);
+      ctx.lineTo(currentX, currentY);
+      ctx.strokeStyle = window.drawingState.color;
+      ctx.lineWidth = window.drawingState.size;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      
+      window.drawingState.lastX = currentX;
+      window.drawingState.lastY = currentY;
+    }
+
+    function stopDrawing() {
+      window.drawingState.isDrawing = false;
+    }
+
+    function handleTouchStart(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent('mousedown', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      document.getElementById('drawingCanvas').dispatchEvent(mouseEvent);
+    }
+
+    function handleTouchMove(e) {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const mouseEvent = new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY
+      });
+      document.getElementById('drawingCanvas').dispatchEvent(mouseEvent);
+    }
+
+    function setDrawingTool(element, tool) {
+      document.querySelectorAll('.drawing-tool').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      
+      window.drawingState.tool = tool;
+      window.drawingState.size = parseInt(element.dataset.size) || 3;
+    }
+
+    function clearDrawingCanvas() {
+      const canvas = document.getElementById('drawingCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function newDrawingWord() {
+      const words = ['قلب', 'وردة', 'منزل', 'شجرة', 'سيارة', 'شمس', 'قمر', 'كتاب'];
+      window.drawingWord = words[Math.floor(Math.random() * words.length)];
+      document.getElementById('wordToDraw').textContent = window.drawingWord;
+      clearDrawingCanvas();
+    }
+
+    // دوال لعبة اختبار الحب
+    function loadCoupleQuizQuestion() {
+      const state = window.coupleQuizState;
+      const question = state.questions[state.currentQuestion];
+      
+      let optionsHtml = question.options.map((opt, i) => `
+        <div class="quiz-option" onclick="selectCoupleQuizAnswer(${i})">
+          ${opt}
+        </div>
+      `).join('');
+      
+      let gameHtml = `
+        <div class="couple-quiz">
+          <div class="quiz-question">${question.question}</div>
+          <div class="quiz-options">
+            ${optionsHtml}
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('gameContent').innerHTML = gameHtml;
+    }
+
+    function selectCoupleQuizAnswer(answerIndex) {
+      const state = window.coupleQuizState;
+      state.answers.push(answerIndex);
+      
+      state.currentQuestion++;
+      if (state.currentQuestion < state.questions.length) {
+        loadCoupleQuizQuestion();
+      } else {
+        showCoupleQuizResults();
+      }
+    }
+
+    function showCoupleQuizResults() {
+      const state = window.coupleQuizState;
+      let sameAnswers = 0;
+      
+      // في الواقع، يجب مقارنة إجابات الزوجين، لكن هنا سنفترض أن الإجابات الصحيحة هي أول خيار
+      state.answers.forEach((answer, i) => {
+        if (answer === 0) sameAnswers++;
+      });
+      
+      const percentage = Math.round((sameAnswers / state.questions.length) * 100);
+      let message = '';
+      
+      if (percentage >= 80) {
+        message = 'أنتما متطابقان بشكل رائع! 💖';
+      } else if (percentage >= 50) {
+        message = 'لديكما الكثير من القواسم المشتركة! 💕';
+      } else {
+        message = 'حاولا التعرف على بعضكما أكثر! 💘';
+      }
+      
+      let gameHtml = `
+        <div class="couple-quiz">
+          <div class="quiz-result">
+            <h3>نتيجة اختبار الحب</h3>
+            <p>التوافق: ${percentage}%</p>
+            <p>${message}</p>
+            <button class="reset-game-btn" onclick="resetCoupleQuiz()">حاول مرة أخرى</button>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('gameContent').innerHTML = gameHtml;
+    }
+
+    function resetCoupleQuiz() {
+      window.coupleQuizState = {
+        questions: window.coupleQuizState.questions,
+        currentQuestion: 0,
+        answers: []
+      };
+      
+      loadCoupleQuizQuestion();
     }
 
     // Close modal when clicking outside image
