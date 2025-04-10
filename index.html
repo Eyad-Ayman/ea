@@ -2075,12 +2075,6 @@
         const newUrl = window.location.pathname + '?' + urlParams.toString();
         window.history.replaceState({}, '', newUrl);
         
-        // ضع علامة في localStorage
-        localStorage.setItem('valid_access', 'true');
-        return true;
-      }
-      // إذا كان هناك تخزين محلي صالح
-      else if (localStorage.getItem('valid_access')) {
         return true;
       }
       // إذا لم يكن هناك توكن صالح
@@ -2103,7 +2097,8 @@
 
       // منع التحديث
       window.addEventListener('beforeunload', function(e) {
-        localStorage.removeItem('valid_access');
+        e.preventDefault();
+        e.returnValue = '';
       });
     }
 
