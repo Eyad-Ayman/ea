@@ -140,77 +140,32 @@
       font-size: 0.85rem;
     }
     
-    .login-input-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    
-    #usernameInput {
+    .qr-scanner-container {
       width: 100%;
-      padding: 12px 15px;
-      font-size: 0.95rem;
-      border-radius: 50px;
-      border: none;
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
-      transition: all 0.3s;
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-      box-sizing: border-box;
-    }
-    
-    #usernameInput:focus {
-      outline: none;
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 0 2px var(--primary-pink);
-    }
-    
-    #loginButton {
-      width: 100%;
-      padding: 13px;
-      font-size: 1rem;
-      background: linear-gradient(to right, var(--primary-pink), var(--mauve));
-      color: white;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 5px 15px rgba(255, 45, 110, 0.3);
-      font-weight: 500;
-      letter-spacing: 1px;
-      margin-top: 10px;
-      position: relative;
+      margin: 15px 0;
+      border-radius: 10px;
       overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.1);
+      position: relative;
+      display: none;
     }
     
-    #loginButton::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
+    .qr-scanner-container video {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, var(--dark-pink), var(--dark-mauve));
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: -1;
+      height: auto;
+      background: #000;
     }
     
-    #loginButton:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255, 45, 110, 0.5);
+    .qr-instructions {
+      text-align: center;
+      color: #aaa;
+      font-size: 0.8rem;
+      margin: 10px 0;
     }
     
-    #loginButton:hover::before {
-      opacity: 1;
-    }
+    /* باقي الأنماط تبقى كما هي */
+    /* ... */
     
-    .login-footer {
-      margin-top: 25px;
-      color: #666;
-      font-size: 0.75rem;
-    }
-
     /* تأثيرات الهيدر */
     header {
       text-align: center;
@@ -1417,6 +1372,115 @@
       to { transform: translate(-50%, -50%) rotate(360deg); }
     }
     
+    /* إشعارات */
+    .notification {
+      position: fixed;
+      bottom: 70px;
+      right: 15px;
+      background: linear-gradient(to right, var(--primary-pink), var(--mauve));
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 1001;
+      transform: translateX(200%);
+      transition: transform 0.3s ease-out;
+      max-width: 80%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+    }
+    
+    .notification i {
+      font-size: 1.2rem;
+    }
+    
+    /* تأثير نجاح المسح */
+    .success-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
+    
+    .success-animation.show {
+      opacity: 1;
+    }
+    
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 5;
+      stroke: #fff;
+      stroke-miterlimit: 10;
+      margin: 10% auto;
+      box-shadow: 0 0 0 rgba(76, 175, 80, 0.4);
+      animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 0.3s ease-in-out 0.9s both;
+    }
+    
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 5;
+      stroke-miterlimit: 10;
+      stroke: var(--primary-pink);
+      fill: none;
+      animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    
+    .checkmark-check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: checkmark-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+    
+    @keyframes checkmark-stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    @keyframes checkmark-scale {
+      0%, 100% {
+        transform: none;
+      }
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+    
+    @keyframes checkmark-fill {
+      100% {
+        box-shadow: inset 0 0 0 100px rgba(255, 45, 110, 0.7);
+      }
+    }
+    
+    .success-text {
+      color: white;
+      font-size: 1.5rem;
+      margin-top: 20px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 0.3s ease-in-out 1s forwards;
+    }
+    
     /* تحسينات اللمس للهواتف */
     @media (max-width: 768px) {
       .couple-name {
@@ -1478,6 +1542,22 @@
       .note-time {
         font-size: 0.7rem;
       }
+      
+      .notification {
+        bottom: 60px;
+        right: 10px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .checkmark {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .success-text {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -1488,6 +1568,21 @@
   <!-- دائرة التحميل -->
   <div class="loader" id="loader"></div>
   
+  <!-- تأثير نجاح المسح -->
+  <div class="success-animation" id="successAnimation">
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+      <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+      <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+    </svg>
+    <div class="success-text">تم تسجيل الدخول بنجاح!</div>
+  </div>
+  
+  <!-- إشعارات -->
+  <div id="notification" class="notification">
+    <i class="fas fa-heart"></i>
+    <span id="notificationText"></span>
+  </div>
+  
   <!-- واجهة تسجيل الدخول المحسنة -->
   <div id="loginScreen">
     <div class="login-logo">
@@ -1495,14 +1590,15 @@
     </div>
     <div class="login-container">
       <h2>عالم حبنا</h2>
-      <p class="login-subtitle">مكان خاص بنا فقط</p>
+      <p class="login-subtitle">مسح رمز الدخول الخاص بكم</p>
       
-      <div class="login-input-group">
-        <input type="text" id="usernameInput" placeholder="اسم المستخدم">
+      <div class="qr-scanner-container">
+        <video id="qrScanner" width="300" height="200" playsinline></video>
+        <canvas id="qrCanvas" style="display:none;"></canvas>
       </div>
       
-      <button id="loginButton">
-        <i class="fas fa-lock-open"></i> دخول
+      <button id="scanButton">
+        <i class="fas fa-qrcode"></i> بدء المسح
       </button>
       
       <p class="login-footer">فقط Eyad و Mariam يمكنهم الدخول</p>
@@ -1672,6 +1768,9 @@
     <source src="https://firebasestorage.googleapis.com/v0/b/eyadmariam-70ed5.appspot.com/o/lovesong.mp3?alt=media" type="audio/mp3">
   </audio>
 
+  <!-- إضافة مكتبة jsQR لقراءة QR Codes -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
     import { getDatabase, ref, push, onValue, child, update, remove } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
@@ -1698,13 +1797,16 @@
       mariam: 'https://i.imgur.com/QvH7Tiy.jpg',
       Eyad: 'https://i.imgur.com/MBaUC1B.jpg',
       مريم: 'https://i.imgur.com/QvH7Tiy.jpg',
-      maryam: 'https://i.imgur.com/QvH7Tiy.jpg' // تم تصحيح هذه الصورة لتكون مثل صورة أياد
+      maryam: 'https://i.imgur.com/QvH7Tiy.jpg'
     };
-
 
     let username = '';
     let currentUser = '';
     let postsCount = 0;
+    let videoStream = null;
+    let qrScannerActive = false;
+    let lastMessageTimestamp = 0;
+    let lastNoteTimestamp = 0;
 
     // إنشاء قلوب عائمة
     function createHearts() {
@@ -1728,44 +1830,159 @@
       document.getElementById('loader').style.display = show ? 'block' : 'none';
     }
 
-    // Login System
-    document.getElementById('loginButton').addEventListener('click', () => {
-      const input = document.getElementById('usernameInput');
-      const name = input.value.trim().toLowerCase();
+    // عرض إشعار
+    function showNotification(text) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      notificationText.textContent = text;
+      notification.classList.add('show');
       
-      if (name === 'eyad' || name === 'mariam') {
-        username = name;
-        currentUser = name === 'eyad' ? 'Eyad' : 'Maryam';
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+      
+      // إرسال إشعار نظامي إذا كان المستخدم على هاتف
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('EYAD & MARIAM', {
+          body: text,
+          icon: 'https://i.imgur.com/0gGLdYO.jpg'
+        });
+      }
+    }
+
+    // طلب إذن الإشعارات
+    function requestNotificationPermission() {
+      if ('Notification' in window) {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            console.log('Notification permission granted.');
+          }
+        });
+      }
+    }
+
+    // عرض تأثير نجاح المسح
+    function showSuccessAnimation() {
+      const successAnim = document.getElementById('successAnimation');
+      successAnim.classList.add('show');
+      
+      setTimeout(() => {
+        successAnim.classList.remove('show');
+      }, 2000);
+    }
+
+    // بدء مسح QR Code
+    function startQRScanner() {
+      const video = document.getElementById('qrScanner');
+      const canvas = document.getElementById('qrCanvas');
+      const canvasContext = canvas.getContext('2d');
+      
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(function(stream) {
+          videoStream = stream;
+          video.srcObject = stream;
+          video.play();
+          
+          function scanQR() {
+            if (!qrScannerActive) return;
+            
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+              canvas.height = video.videoHeight;
+              canvas.width = video.videoWidth;
+              canvasContext.drawImage(video, 0, 0, canvas.width, canvas.height);
+              
+              const imageData = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
+              const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: "dontInvert",
+              });
+              
+              if (code) {
+                handleQRCode(code.data);
+              }
+            }
+            
+            requestAnimationFrame(scanQR);
+          }
+          
+          scanQR();
+        })
+        .catch(function(err) {
+          console.error("Error accessing camera: ", err);
+          alert("تعذر الوصول إلى الكاميرا. يرجى التأكد من منح الإذن.");
+        });
+    }
+
+    // إيقاف مسح QR Code
+    function stopQRScanner() {
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+      }
+      qrScannerActive = false;
+    }
+
+    // معالجة بيانات QR Code
+    function handleQRCode(data) {
+      try {
+        const userData = JSON.parse(data);
         
-        // Hide login and show app
-        document.getElementById('loginScreen').classList.add('hidden');
-        document.getElementById('appContent').classList.remove('hidden');
+        if (userData.user === 'eyad' || userData.user === 'mariam') {
+          username = userData.user;
+          currentUser = userData.user === 'eyad' ? 'Eyad' : 'Maryam';
+          
+          // إيقاف المسح وإخفاء واجهة تسجيل الدخول
+          stopQRScanner();
+          
+          // عرض تأثير النجاح
+          showSuccessAnimation();
+          
+          // طلب إذن الإشعارات
+          requestNotificationPermission();
+          
+          // الانتقال للصفحة الرئيسية بعد انتهاء الأنيميشن
+          setTimeout(() => {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appContent').classList.remove('hidden');
+            
+            // تحميل البيانات
+            showLoader(true);
+            setTimeout(() => {
+              loadNotes();
+              loadMessages();
+              loadBabyNames();
+              updateDaysCount();
+              showLoader(false);
+            }, 1000);
+            
+            // تشغيل الموسيقى
+            document.getElementById('bgMusic').play().catch(e => console.log('Auto-play prevented:', e));
+          }, 2000);
+        } else {
+          alert("رمز QR غير صالح. يرجى استخدام رمز صالح.");
+        }
+      } catch (e) {
+        console.error("Error parsing QR code: ", e);
+        alert("تعذر قراءة رمز QR. يرجى المحاولة مرة أخرى.");
+      }
+    }
+
+    // نظام تسجيل الدخول
+    document.getElementById('scanButton').addEventListener('click', () => {
+      const scannerContainer = document.querySelector('.qr-scanner-container');
+      
+      if (!qrScannerActive) {
+        // بدء المسح
+        scannerContainer.style.display = 'block';
+        document.getElementById('scanButton').innerHTML = '<i class="fas fa-stop"></i> إيقاف المسح';
+        qrScannerActive = true;
         
-        // Load all data with loading indicator
-        showLoader(true);
-        setTimeout(() => {
-          loadNotes();
-          loadMessages();
-          loadBabyNames();
-          updateDaysCount();
-          showLoader(false);
-        }, 1000);
-        
-        // Play background music
-        document.getElementById('bgMusic').play().catch(e => console.log('Auto-play prevented:', e));
+        startQRScanner();
       } else {
-        // رسالة خطأ أنيقة
-        const loginContainer = document.querySelector('.login-container');
-        loginContainer.classList.add('shake');
-        setTimeout(() => {
-          loginContainer.classList.remove('shake');
-        }, 500);
-        
-        // تغيير مؤقت للون الحقل
-        input.style.borderColor = 'var(--primary-pink)';
-        setTimeout(() => {
-          input.style.borderColor = 'rgba(255,255,255,0.1)';
-        }, 2000);
+        // إيقاف المسح
+        stopQRScanner();
+        scannerContainer.style.display = 'none';
+        document.getElementById('scanButton').innerHTML = '<i class="fas fa-qrcode"></i> بدء المسح';
+        qrScannerActive = false;
       }
     });
 
@@ -1858,6 +2075,14 @@
         
         if (data) {
           Object.entries(data).reverse().forEach(([key, note]) => {
+            const noteTime = new Date(note.timestamp).getTime();
+            
+            // إرسال إشعار إذا كانت هناك ملاحظة جديدة من المستخدم الآخر
+            if (note.user !== currentUser && noteTime > lastNoteTimestamp) {
+              showNotification(`💌 ${note.user} نشر ذكرى جديدة!`);
+            }
+            
+            lastNoteTimestamp = Math.max(lastNoteTimestamp, noteTime);
             postsCount++;
             notesArray.push(note);
             const noteDiv = document.createElement("div");
@@ -1974,6 +2199,14 @@
           Object.entries(data).forEach(([key, message]) => {
             const time = new Date(message.timestamp);
             const timeString = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const messageTime = time.getTime();
+            
+            // إرسال إشعار إذا كانت هناك رسالة جديدة من المستخدم الآخر
+            if (message.user !== currentUser && messageTime > lastMessageTimestamp) {
+              showNotification(`💬 ${message.user} أرسل رسالة جديدة!`);
+            }
+            
+            lastMessageTimestamp = Math.max(lastMessageTimestamp, messageTime);
             
             const msg = document.createElement('div');
             msg.className = `message-container ${message.user === currentUser ? 'me' : 'other'}`;
