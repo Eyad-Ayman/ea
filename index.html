@@ -1,91 +1,147 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EYAD & MARIAM - One-Time Access</title>
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #ff2d6e, #b388ff);
-            color: white;
-            text-align: center;
-            padding: 0;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-        }
-        .hidden {
-            display: none;
-        }
-        #blockScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>دفتر حبنا الأبدي | EYAD & MARIAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-pink: #ff2d6e;
+      --dark-pink: #d81b60;
+      --light-pink: #ff5c8d;
+      --mauve: #b388ff;
+      --dark-mauve: #7c4dff;
+      --black: #121212;
+      --dark: #1a1a1a;
+      --darker: #111;
+      --glow-color: rgba(255, 45, 110, 0.6);
+      --counter-color: #b388ff;
+    }
+    
+    /* أنيميشن النبض */
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.1); }
+      40% { transform: scale(0.95); }
+      60% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-beat {
+      display: inline-block;
+      color: var(--counter-color);
+      font-weight: bold;
+      animation: heartbeat 1.5s infinite;
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, var(--black), var(--darker));
+      color: white;
+      overflow-x: hidden;
+      touch-action: manipulation;
+    }
+
+    /* شاشة المنع */
+    #blockScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    #blockScreen h2 {
+      color: var(--primary-pink);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    
+    #blockScreen p {
+      font-size: 1.2rem;
+      max-width: 80%;
+    }
+
+    /* باقي الأنماط الأصلية */
+    /* ... (أضف هنا كل أنماط CSS الأصلية الخاصة بك) ... */
+    
+  </style>
 </head>
 <body>
-    <!-- المحتوى الرئيسي -->
-    <div class="container" id="mainContent">
-        <h1>EYAD & MARIAM 💖</h1>
-        <p>مرحبًا! هذه الزيارة الوحيدة المسموح بها.</p>
-    </div>
+  <!-- شاشة المنع -->
+  <div id="blockScreen">
+    <h2>⛔ الوصول ممنوع!</h2>
+    <p>لا يمكنك تحديث الصفحة أو إعادة فتحها</p>
+    <p>يجب الدخول عبر الرابط الأصلي فقط</p>
+  </div>
 
-    <!-- شاشة المنع -->
-    <div id="blockScreen" class="hidden">
-        <h2>⛔ الوصول ممنوع!</h2>
-        <p>لا يمكنك تحديث الصفحة أو إعادة فتحها.</p>
-        <p>يجب الدخول عبر الرابط الأصلي.</p>
-    </div>
+  <!-- محتوى التطبيق الأصلي -->
+  <div id="appContent">
+    <!-- ... (أضف هنا كل محتوى HTML الأصلي الخاص بك) ... -->
+  </div>
 
-    <script>
-        // تحقق من وجود علامة في الرابط
-        function checkAccess() {
-            const url = new URL(window.location.href);
-            const hasToken = url.searchParams.has('token');
+  <script>
+    // توليد توكن معقد (يجب أن يتطابق مع الرابط)
+    const SECRET_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRFlBRCIsImRhdGUiOiIyMDI0LTAxLTAxIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
-            // إذا كان الرابط يحتوي على Token (الزيارة الأولى)
-            if (hasToken) {
-                // أضف علامة في localStorage لمنع إعادة الدخول
-                localStorage.setItem('visited', 'true');
-                // أزل الـ Token من الرابط لمنع المشاركة
-                url.searchParams.delete('token');
-                window.history.replaceState({}, '', url);
-            } 
-            // إذا تم التحديث أو إعادة الفتح
-            else if (localStorage.getItem('visited')) {
-                showBlockScreen();
-            }
-        }
+    // تحقق من صحة التوكن في الرابط
+    function validateToken() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('access_token');
+      
+      // إذا كان التوكن صحيحًا (الزيارة الأولى)
+      if (token === SECRET_TOKEN) {
+        // احذف التوكن من الرابط
+        urlParams.delete('access_token');
+        const newUrl = window.location.pathname + '?' + urlParams.toString();
+        window.history.replaceState({}, '', newUrl);
+        
+        // ضع علامة في localStorage
+        localStorage.setItem('valid_access', 'true');
+        return true;
+      }
+      // إذا كان هناك تخزين محلي صالح
+      else if (localStorage.getItem('valid_access')) {
+        return true;
+      }
+      // إذا لم يكن هناك توكن صالح
+      else {
+        return false;
+      }
+    }
 
-        function showBlockScreen() {
-            document.getElementById('mainContent').classList.add('hidden');
-            document.getElementById('blockScreen').classList.remove('hidden');
-            
-            // منع أي تفاعل مع الصفحة
-            document.body.style.pointerEvents = 'none';
-        }
+    // منع التحديث وإعادة الفتح
+    function setupAccessControl() {
+      if (!validateToken()) {
+        // إخفاء المحتوى وإظهار شاشة المنع
+        document.getElementById('appContent').style.display = 'none';
+        document.getElementById('blockScreen').style.display = 'flex';
+        
+        // منع أي تفاعل مع الصفحة
+        document.body.style.pointerEvents = 'none';
+        return;
+      }
 
-        // عند تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', checkAccess);
-    </script>
+      // منع التحديث
+      window.addEventListener('beforeunload', function(e) {
+        localStorage.removeItem('valid_access');
+      });
+    }
+
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', setupAccessControl);
+  </script>
 </body>
 </html>
