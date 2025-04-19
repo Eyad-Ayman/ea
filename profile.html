@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بروفايل الأعمال - EyadCard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-light: #9C4BFF;
+            --primary-dark: #6A1B9A;
+            --secondary: #292929;
+            --light: #F8F9FA;
+            --dark: #1A1A1A;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+            --success: #28A745;
+            --danger: #DC3545;
+            --radius: 16px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .back-btn {
+            display: none; /* مخفي افتراضياً */
+            align-items: center;
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateX(-3px);
+            box-shadow: 0 6px 16px rgba(138, 43, 226, 0.4);
+        }
+
+        .back-btn i {
+            margin-left: 8px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--light);
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .profile-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            animation: slideUp 0.8s ease-in-out;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode .profile-card {
+            background: #252525;
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .profile-banner {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .profile-content {
+            padding: 0 20px 20px;
+            position: relative;
+        }
+
+        .profile-img-wrapper {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            background: var(--white);
+            margin: -55px auto 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .dark-mode .profile-img-wrapper {
+            border-color: #252525;
+            background: #252525;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .profile-name {
+            text-align: center;
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .dark-mode .profile-name {
+            color: var(--light);
+        }
+
+        .profile-description {
+            text-align: center;
+            color: var(--gray);
+            margin: 0 0 20px;
+            line-height: 1.6;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .dark-mode .profile-description {
+            color: #ADADAD;
+        }
+
+        .contact-section {
+            background: rgba(138, 43, 226, 0.08);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 20px 0;
+            transition: var(--transition);
+        }
+
+        .dark-mode .contact-section {
+            background: rgba(43, 43, 43, 0.6);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 12px;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+        }
+
+        .section-title i {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+            transition: var(--transition);
+        }
+
+        .dark-mode .contact-item {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            flex-shrink: 0;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .contact-text {
+            flex-grow: 1;
+        }
+
+        .contact-label {
+            font-size: 11px;
+            color: var(--gray);
+            margin-bottom: 3px;
+        }
+
+        .dark-mode .contact-label {
+            color: #8E8E8E;
+        }
+
+        .contact-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .dark-mode .contact-value {
+            color: var(--light);
+        }
+
+        .social-section {
+            margin: 25px 0;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(138, 43, 226, 0.05);
+        }
+
+        .dark-mode .social-link {
+            background: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            color: var(--primary);
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .social-icon {
+            font-size: 20px;
+            margin-bottom: 6px;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+
+        .dark-mode .social-icon {
+            color: #E0E0E0;
+        }
+
+        .social-name {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .links-section {
+            margin: 25px 0;
+            display: none;
+        }
+
+        .custom-link {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            background: var(--white);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(138, 43, 226, 0.05);
+        }
+
+        .dark-mode .custom-link {
+            background: #333;
+            border-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .custom-link:hover {
+            transform: translateX(-3px);
+            background: var(--primary);
+            color: white;
+        }
+
+        .custom-link-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .custom-link:hover .custom-link-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .save-contact {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+        }
+
+        .save-contact:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(138, 43, 226, 0.4);
+        }
+
+        .loading, .error {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(138, 43, 226, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        .error-icon {
+            font-size: 40px;
+            color: var(--danger);
+            margin-bottom: 20px;
+        }
+
+        .back-trigger {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .back-trigger:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .back-menu {
+            position: fixed;
+            bottom: 70px;
+            left: 20px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+            width: 160px;
+        }
+
+        .dark-mode .back-menu {
+            background: #333;
+        }
+
+        .back-menu a {
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .dark-mode .back-menu a {
+            color: var(--light);
+        }
+
+        .back-menu a:hover {
+            background: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .social-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-banner {
+                height: 150px;
+            }
+            
+            .profile-img-wrapper {
+                width: 90px;
+                height: 90px;
+                margin: -45px auto 10px;
+            }
+            
+            .profile-name {
+                font-size: 20px;
+            }
+            
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-section {
+                padding: 12px;
+            }
+            
+            .profile-content {
+                padding: 0 15px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading">
+            <div class="loading-spinner"></div>
+            <p>جاري تحميل البروفايل...</p>
+        </div>
+        
+        <div id="profile-content" style="display: none;">
+            <div class="profile-header">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> العودة</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <div class="profile-card">
+                <img id="banner-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="profile-banner">
+                
+                <div class="profile-content">
+                    <div class="profile-img-wrapper">
+                        <img id="profile-image" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjgwIiBmaWxsPSIjOEEyQkUyIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI2MCIgZmlsbD0iI2ZmZiIvPjx0ZXh0IHg9IjEwMCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM4QTJCRTIiPkVDwqA8L3RleHQ+PC9zdmc+" 
+                             class="profile-img">
+                    </div>
+                    
+                    <h1 id="business-name" class="profile-name">اسم العمل</h1>
+                    <p id="business-description" class="profile-description">وصف العمل يظهر هنا</p>
+                    
+                    <div class="contact-section">
+                        <h3 class="section-title"><i class="fas fa-id-card"></i> معلومات التواصل</h3>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">الهاتف</div>
+                                <div id="phone" class="contact-value">غير متوفر</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">البريد الإلكتروني</div>
+                                <div id="email" class="contact-value">غير متوفر</div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">العنوان</div>
+                                <div id="address" class="contact-value">غير متوفر</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-section">
+                        <h3 class="section-title"><i class="fas fa-share-alt"></i> وسائل التواصل</h3>
+                        <div id="social-links" class="social-grid">
+                            <!-- سيتم إضافة روابط التواصل الاجتماعي هنا -->
+                        </div>
+                    </div>
+                    
+                    <div id="links-section" class="links-section">
+                        <h3 class="section-title"><i class="fas fa-link"></i> روابط إضافية</h3>
+                        <div id="custom-links" class="custom-links">
+                            <!-- سيتم إضافة الروابط الخاصة هنا -->
+                        </div>
+                    </div>
+                    
+                    <button id="saveContact" class="save-contact">
+                        <i class="fas fa-save"></i> حفظ البيانات في الجهاز
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="error" class="error" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p id="error-message">حدث خطأ في تحميل البروفايل</p>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> العودة للرئيسية</a>
+        </div>
+        
+        <div class="back-trigger" id="backTrigger">
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        
+        <div class="back-menu" id="backMenu">
+            <a href="index.html"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+            <a href="#" id="saveContactMobile"><i class="fas fa-save"></i> حفظ البيانات</a>
+            <a href="#" id="shareProfile"><i class="fas fa-share-alt"></i> مشاركة البروفايل</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpGdN1G_6_gx-fypaGFV-bl0SDYN6vSSI",
+            authDomain: "eyadaymancard.firebaseapp.com",
+            projectId: "eyadaymancard",
+            storageBucket: "eyadaymancard.appspot.com",
+            messagingSenderId: "460881398666",
+            appId: "1:460881398666:web:24bb60acda8a4122679673",
+            measurementId: "G-0GTHJWYPTG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // تبديل الوضع الداكن/الفاتح
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+        
+        // إدارة قائمة العودة
+        const backTrigger = document.getElementById('backTrigger');
+        const backMenu = document.getElementById('backMenu');
+        
+        backTrigger.addEventListener('click', () => {
+            backMenu.style.display = backMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (!backTrigger.contains(e.target)) {
+                backMenu.style.display = 'none';
+            }
+        });
+        
+        // حفظ البيانات في الجهاز
+        function saveContactToDevice() {
+            const businessName = document.getElementById('business-name').textContent;
+            const phone = document.getElementById('phone').textContent;
+            const email = document.getElementById('email').textContent;
+            
+            let vCard = "BEGIN:VCARD\nVERSION:3.0\n";
+            vCard += `FN:${businessName}\n`;
+            vCard += `TEL:${phone.replace(/\s+/g, '')}\n`;
+            vCard += `EMAIL:${email}\n`;
+            vCard += "END:VCARD";
+            
+            const blob = new Blob([vCard], { type: "text/vcard" });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', `${businessName}.vcf`);
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            alert(`تم حفظ بيانات ${businessName} بنجاح في جهازك`);
+        }
+        
+        document.getElementById('saveContact').addEventListener('click', saveContactToDevice);
+        document.getElementById('saveContactMobile').addEventListener('click', (e) => {
+            e.preventDefault();
+            saveContactToDevice();
+        });
+        
+        // مشاركة البروفايل
+        document.getElementById('shareProfile').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (navigator.share) {
+                navigator.share({
+                    title: document.getElementById('business-name').textContent,
+                    text: 'تحقق من بروفايل الأعمال الخاص بي',
+                    url: window.location.href,
+                })
+                .catch(error => console.log('Error sharing:', error));
+            } else {
+                alert('ميزة المشاركة غير متاحة في هذا المتصفح. يمكنك نسخ الرابط يدوياً.');
+            }
+        });
+
+        // استخراج معرف المستخدم من الرابط
+        function getUserIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // تحميل بيانات البروفايل
+        async function loadProfile() {
+            const userId = getUserIdFromURL();
+            const loadingEl = document.getElementById('loading');
+            const profileEl = document.getElementById('profile-content');
+            const errorEl = document.getElementById('error');
+            
+            if (!userId) {
+                showError('معرف البروفايل غير صحيح');
+                return;
+            }
+
+            try {
+                const docRef = doc(db, 'users', userId);
+                const docSnap = await getDoc(docRef);
+                
+                if (!docSnap.exists()) {
+                    throw new Error('البروفايل غير موجود');
+                }
+
+                const profileData = docSnap.data();
+                
+                document.getElementById('business-name').textContent = profileData.businessName || 'اسم العمل';
+                document.getElementById('phone').textContent = profileData.phone || 'غير متوفر';
+                document.getElementById('email').textContent = profileData.email || 'غير متوفر';
+                document.getElementById('address').textContent = profileData.address || 'غير متوفر';
+                document.getElementById('business-description').textContent = profileData.description || 'وصف العمل يظهر هنا';
+                
+                if (profileData.profileImageUrl) {
+                    document.getElementById('profile-image').src = profileData.profileImageUrl;
+                }
+                
+                if (profileData.bannerImageUrl) {
+                    document.getElementById('banner-image').src = profileData.bannerImageUrl;
+                }
+                
+                const socialLinksContainer = document.getElementById('social-links');
+                socialLinksContainer.innerHTML = '';
+                
+                if (profileData.socialLinks) {
+                    const socialLinks = profileData.socialLinks;
+                    const socialPlatforms = [
+                        { key: 'facebook', icon: 'facebook-f', name: 'فيسبوك', color: '#1877F2' },
+                        { key: 'twitter', icon: 'twitter', name: 'تويتر', color: '#1DA1F2' },
+                        { key: 'instagram', icon: 'instagram', name: 'إنستجرام', color: 'linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)' },
+                        { key: 'linkedin', icon: 'linkedin-in', name: 'لينكد إن', color: '#0A66C2' },
+                        { key: 'whatsapp', icon: 'whatsapp', name: 'واتساب', color: '#25D366' },
+                        { key: 'snapchat', icon: 'snapchat-ghost', name: 'سناب شات', color: '#FFFC00' },
+                        { key: 'tiktok', icon: 'tiktok', name: 'تيك توك', color: '#000000' },
+                        { key: 'youtube', icon: 'youtube', name: 'يوتيوب', color: '#FF0000' },
+                        { key: 'telegram', icon: 'telegram', name: 'تيليجرام', color: '#0088CC' },
+                        { key: 'pinterest', icon: 'pinterest', name: 'بينتيريست', color: '#E60023' },
+                        { key: 'reddit', icon: 'reddit', name: 'ريديت', color: '#FF5700' },
+                        { key: 'discord', icon: 'discord', name: 'ديسكورد', color: '#5865F2' }
+                    ];
+                    
+                    socialPlatforms.forEach(platform => {
+                        if (socialLinks[platform.key]?.enabled) {
+                            let url = '';
+                            if (platform.key === 'whatsapp') {
+                                url = `https://wa.me/${socialLinks.whatsapp.number}`;
+                            } else if (platform.key === 'snapchat') {
+                                url = `https://snapchat.com/add/${socialLinks.snapchat.username}`;
+                            } else {
+                                url = socialLinks[platform.key].url;
+                            }
+                            
+                            if (url) {
+                                socialLinksContainer.innerHTML += `
+                                    <a href="${url}" target="_blank" class="social-link" style="color: ${platform.key === 'snapchat' ? '#000' : '#fff'}; background: ${platform.color}">
+                                        <div class="social-icon">
+                                            <i class="fab fa-${platform.icon}"></i>
+                                        </div>
+                                        <div class="social-name">${platform.name}</div>
+                                    </a>
+                                `;
+                            }
+                        }
+                    });
+                }
+                
+                const customLinksContainer = document.getElementById('custom-links');
+                const linksSection = document.getElementById('links-section');
+                customLinksContainer.innerHTML = '';
+                
+                if (profileData.customLinks && profileData.customLinks.length > 0) {
+                    linksSection.style.display = 'block';
+                    
+                    profileData.customLinks.forEach(link => {
+                        customLinksContainer.innerHTML += `
+                            <a href="${link.url}" target="_blank" class="custom-link">
+                                <div class="custom-link-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="custom-link-text">
+                                    <div class="custom-link-title">${link.title}</div>
+                                </div>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        `;
+                    });
+                }
+                
+                await registerProfileVisit(userId);
+                
+                loadingEl.style.display = 'none';
+                profileEl.style.display = 'block';
+                
+            } catch (error) {
+                showError(error.message || 'حدث خطأ في جلب البيانات');
+                console.error("Error loading profile:", error);
+            }
+        }
+
+        // تسجيل زيارة البروفايل
+        async function registerProfileVisit(userId) {
+            try {
+                await addDoc(collection(db, `users/${userId}/visits`), {
+                    timestamp: serverTimestamp(),
+                    userAgent: navigator.userAgent,
+                });
+                
+                await updateDoc(doc(db, 'users', userId), {
+                    profileViews: increment(1)
+                });
+            } catch (error) {
+                console.error("Error registering visit:", error);
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error').style.display = 'block';
+            document.querySelector('.back-btn').style.display = 'inline-flex';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - EyadCard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-light: #9C4BFF;
+            --primary-dark: #6A1B9A;
+            --secondary: #292929;
+            --light: #F8F9FA;
+            --dark: #1A1A1A;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+            --success: #28A745;
+            --danger: #DC3545;
+            --warning: #FFC107;
+            --info: #17A2B8;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode header {
+            border-bottom-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-greeting {
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: var(--radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            gap: 8px;
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background-color: #C82333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+
+        .btn-warning:hover {
+            background-color: #E0A800;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: var(--white);
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(23, 162, 184, 0.3);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .dark-mode .theme-toggle {
+            color: var(--light);
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+        }
+
+        .sidebar {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 15px;
+            height: fit-content;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode .sidebar {
+            background-color: #252525;
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-item {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: var(--radius);
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .dark-mode .sidebar-link {
+            color: var(--light);
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .sidebar-link i {
+            margin-left: 10px;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode .card {
+            background-color: #252525;
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .card-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .dark-mode .card-subtitle {
+            color: #ADADAD;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .dark-mode .form-label {
+            color: var(--light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .dark-mode .form-control {
+            background-color: #333;
+            border-color: #444;
+            color: var(--light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .profile-image-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            margin-bottom: -40px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .dark-mode .profile-image {
+            border-color: #252525;
+        }
+
+        .image-upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .image-upload-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode .stat-card {
+            background-color: #252525;
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: white;
+            background: var(--primary);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .dark-mode .stat-value {
+            color: var(--light);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .stat-change {
+            font-size: 12px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.up {
+            color: var(--success);
+        }
+
+        .stat-change.down {
+            color: var(--danger);
+        }
+
+        .social-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .social-platform {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 14px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            border: 1px solid rgba(138, 43, 226, 0.1);
+        }
+
+        .dark-mode .social-platform {
+            background-color: #252525;
+            border-color: rgba(138, 43, 226, 0.2);
+        }
+
+        .social-platform:hover {
+            transform: translateY(-3px);
+        }
+
+        .social-platform-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+            color: white;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .social-platform-info {
+            flex: 1;
+        }
+
+        .social-platform-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .social-platform-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .dark-mode .social-platform-input {
+            background-color: #333;
+            border-color: #444;
+            color: var(--light);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 22px;
+            margin-right: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 22px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(23px);
+        }
+
+        .custom-links-container {
+            margin: 18px 0;
+        }
+
+        .custom-link-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 8px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            justify-content: space-between;
+        }
+
+        .dark-mode .custom-link-item {
+            background-color: #333;
+        }
+
+        .custom-link-icon {
+            margin-left: 10px;
+            color: var(--primary);
+        }
+
+        .link-copy-container {
+            display: flex;
+            margin: 12px 0;
+        }
+
+        .link-copy-container input {
+            flex: 1;
+            margin-left: 10px;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dark-mode .link-copy-container input {
+            background-color: #333;
+            border-color: #444;
+            color: var(--light);
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(138, 43, 226, 0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        .alert {
+            padding: 14px 16px;
+            border-radius: var(--radius);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border-left: 4px solid var(--danger);
+        }
+
+        .alert-info {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+            border-left: 4px solid var(--info);
+        }
+
+        .visitors-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .visitors-table th, .visitors-table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+        }
+
+        .dark-mode .visitors-table th, 
+        .dark-mode .visitors-table td {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .visitors-table th {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .country-flag {
+            width: 20px;
+            height: 15px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .badge-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .badge-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .user-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .social-platforms {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .banner-image {
+                height: 140px;
+                margin-bottom: -30px;
+            }
+
+            .profile-image-wrapper {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">
+                <div class="logo-icon">EC</div>
+                <div class="logo-text">EyadCard</div>
+            </a>
+            <div class="user-actions">
+                <span id="userGreeting" class="user-greeting"></span>
+                <button id="logoutBtn" class="btn btn-danger btn-sm">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link active" data-tab="profile">
+                            <i class="fas fa-user"></i> الملف الشخصي
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tab="social">
+                            <i class="fas fa-share-alt"></i> وسائل التواصل
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tab="links">
+                            <i class="fas fa-link"></i> الروابط الخاصة
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tab="analytics">
+                            <i class="fas fa-chart-line"></i> الإحصائيات
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link" data-tab="settings">
+                            <i class="fas fa-cog"></i> الإعدادات
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- صفحة الملف الشخصي -->
+                <div id="profileTab" class="tab-content active">
+                    <div class="card">
+                        <form id="profileForm">
+                            <div class="profile-image-container">
+                                <img id="bannerImagePreview" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" class="banner-image">
+                                <div class="profile-image-wrapper">
+                                    <img id="profileImagePreview" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjgwIiBmaWxsPSIjOEEyQkUyIi8+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI2MCIgZmlsbD0iI2ZmZiIvPjx0ZXh0IHg9IjEwMCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM4QTJCRTIiPkVDwqA8L3RleHQ+PC9zdmc+" 
+                                         class="profile-image">
+                                    <div class="image-upload-btn" onclick="document.getElementById('profileImageInput').click()">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                </div>
+                                <input type="file" id="profileImageInput" accept="image/*" style="display: none;">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('bannerImageInput').click()">
+                                    <i class="fas fa-image"></i> تغيير صورة البانر
+                                </button>
+                                <input type="file" id="bannerImageInput" accept="image/*" style="display: none;">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessName" class="form-label">اسم العمل</label>
+                                <input type="text" id="businessName" class="form-control" required placeholder="اسم العمل أو الاسم الشخصي">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessEmail" class="form-label">البريد الإلكتروني</label>
+                                <input type="email" id="businessEmail" class="form-control" required placeholder="example@domain.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessPhone" class="form-label">رقم الهاتف</label>
+                                <input type="tel" id="businessPhone" class="form-control" placeholder="+966501234567">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessAddress" class="form-label">العنوان</label>
+                                <textarea id="businessAddress" class="form-control" rows="3" placeholder="العنوان الكامل"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessDescription" class="form-label">وصف مختصر</label>
+                                <textarea id="businessDescription" class="form-control" rows="5" placeholder="وصف مختصر عن عملك أو خدماتك"></textarea>
+                            </div>
+                            
+                            <div id="profileSuccess" class="alert alert-success" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                تم حفظ التغييرات بنجاح
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- صفحة وسائل التواصل -->
+                <div id="socialTab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">وسائل التواصل الاجتماعي</h3>
+                                <p class="card-subtitle">أضف روابط حساباتك على منصات التواصل الاجتماعي</p>
+                            </div>
+                        </div>
+                        <form id="socialForm">
+                            <div class="social-platforms">
+                                <!-- فيسبوك -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="facebookEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #1877f2;">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">فيسبوك</div>
+                                        <input type="url" id="facebookLink" class="social-platform-input" placeholder="https://facebook.com/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- تويتر -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="twitterEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #1da1f2;">
+                                        <i class="fab fa-twitter"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">تويتر</div>
+                                        <input type="url" id="twitterLink" class="social-platform-input" placeholder="https://twitter.com/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- إنستجرام -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="instagramEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">
+                                        <i class="fab fa-instagram"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">إنستجرام</div>
+                                        <input type="url" id="instagramLink" class="social-platform-input" placeholder="https://instagram.com/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- لينكد إن -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="linkedinEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #0a66c2;">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">لينكد إن</div>
+                                        <input type="url" id="linkedinLink" class="social-platform-input" placeholder="https://linkedin.com/in/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- واتساب -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="whatsappEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #25d366;">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">واتساب</div>
+                                        <input type="tel" id="whatsappNumber" class="social-platform-input" placeholder="966501234567">
+                                    </div>
+                                </div>
+                                
+                                <!-- سناب شات -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="snapchatEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #fffc00; color: #000;">
+                                        <i class="fab fa-snapchat-ghost"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">سناب شات</div>
+                                        <input type="text" id="snapchatUsername" class="social-platform-input" placeholder="اسم المستخدم">
+                                    </div>
+                                </div>
+                                
+                                <!-- تيك توك -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="tiktokEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #000;">
+                                        <i class="fab fa-tiktok"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">تيك توك</div>
+                                        <input type="url" id="tiktokLink" class="social-platform-input" placeholder="https://tiktok.com/@username">
+                                    </div>
+                                </div>
+                                
+                                <!-- يوتيوب -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="youtubeEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #ff0000;">
+                                        <i class="fab fa-youtube"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">يوتيوب</div>
+                                        <input type="url" id="youtubeLink" class="social-platform-input" placeholder="https://youtube.com/c/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- تيليجرام -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="telegramEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #0088cc;">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">تيليجرام</div>
+                                        <input type="text" id="telegramUsername" class="social-platform-input" placeholder="اسم المستخدم">
+                                    </div>
+                                </div>
+                                
+                                <!-- بينتيريست -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="pinterestEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #e60023;">
+                                        <i class="fab fa-pinterest"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">بينتيريست</div>
+                                        <input type="url" id="pinterestLink" class="social-platform-input" placeholder="https://pinterest.com/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- ريديت -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="redditEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #ff5700;">
+                                        <i class="fab fa-reddit"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">ريديت</div>
+                                        <input type="url" id="redditLink" class="social-platform-input" placeholder="https://reddit.com/user/username">
+                                    </div>
+                                </div>
+                                
+                                <!-- ديسكورد -->
+                                <div class="social-platform">
+                                    <label class="switch">
+                                        <input type="checkbox" id="discordEnabled">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <div class="social-platform-icon" style="background-color: #5865f2;">
+                                        <i class="fab fa-discord"></i>
+                                    </div>
+                                    <div class="social-platform-info">
+                                        <div class="social-platform-name">ديسكورد</div>
+                                        <input type="text" id="discordUsername" class="social-platform-input" placeholder="اسم المستخدم#1234">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="socialSuccess" class="alert alert-success" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                تم حفظ التغييرات بنجاح
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- صفحة الروابط الخاصة -->
+                <div id="linksTab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">الروابط الخاصة</h3>
+                                <p class="card-subtitle">أضف روابط خارجية لمواقعك أو منتجاتك</p>
+                            </div>
+                        </div>
+                        <form id="linksForm">
+                            <div class="form-group">
+                                <label class="form-label">إضافة رابط جديد</label>
+                                <div class="input-group" style="display: flex; margin-bottom: 10px;">
+                                    <input type="text" id="newLinkTitle" class="form-control" placeholder="عنوان الرابط" style="margin-left: 10px;">
+                                    <input type="url" id="newLinkUrl" class="form-control" placeholder="https://example.com">
+                                </div>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="addCustomLink()">
+                                    <i class="fas fa-plus"></i> إضافة رابط
+                                </button>
+                            </div>
+                            
+                            <div id="customLinksContainer" class="custom-links-container">
+                                <!-- سيتم إضافة الروابط هنا -->
+                            </div>
+                            
+                            <div id="linksSuccess" class="alert alert-success" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                تم حفظ التغييرات بنجاح
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- صفحة الإحصائيات -->
+                <div id="analyticsTab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">نظرة عامة على الإحصائيات</h3>
+                                <p class="card-subtitle">آخر تحديث: اليوم في <span id="lastUpdatedTime"></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-container">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-value" id="totalVisitors">0</div>
+                                <div class="stat-label">إجمالي الزوار</div>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 12% عن الشهر الماضي
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="stat-value" id="totalViews">0</div>
+                                <div class="stat-label">مشاهدات البروفايل</div>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 8% عن الشهر الماضي
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-qrcode"></i>
+                                </div>
+                                <div class="stat-value" id="totalScans">0</div>
+                                <div class="stat-label">مسح ضوئي للكود</div>
+                                <div class="stat-change down">
+                                    <i class="fas fa-arrow-down"></i> 5% عن الشهر الماضي
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-value" id="engagementRate">0%</div>
+                                <div class="stat-label">معدل التفاعل</div>
+                                <div class="stat-change up">
+                                    <i class="fas fa-arrow-up"></i> 3% عن الشهر الماضي
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="visitsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">آخر الزوار</h3>
+                                <p class="card-subtitle">آخر 10 زيارات لبروفايلك</p>
+                            </div>
+                            <button class="btn btn-info btn-sm" id="refreshVisitors">
+                                <i class="fas fa-sync-alt"></i> تحديث
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="visitors-table">
+                                <thead>
+                                    <tr>
+                                        <th>التاريخ</th>
+                                        <th>الوقت</th>
+                                        <th>البلد</th>
+                                        <th>الجهاز</th>
+                                        <th>النوع</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="visitorsTable">
+                                    <!-- سيتم ملء الجدول بالبيانات -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">مصادر الزيارات</h3>
+                                <p class="card-subtitle">كيف يصل الزوار إلى بروفايلك</p>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="sourcesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صفحة الإعدادات -->
+                <div id="settingsTab" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">إعدادات الحساب</h3>
+                                <p class="card-subtitle">تغيير كلمة المرور وتحديث المعلومات</p>
+                            </div>
+                        </div>
+                        
+                        <form id="accountSettingsForm">
+                            <div class="form-group">
+                                <label for="currentPassword" class="form-label">كلمة المرور الحالية</label>
+                                <input type="password" id="currentPassword" class="form-control" required placeholder="أدخل كلمة المرور الحالية">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="newPassword" class="form-label">كلمة المرور الجديدة</label>
+                                <input type="password" id="newPassword" class="form-control" minlength="6" placeholder="كلمة المرور الجديدة (6 أحرف على الأقل)">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmNewPassword" class="form-label">تأكيد كلمة المرور الجديدة</label>
+                                <input type="password" id="confirmNewPassword" class="form-control" minlength="6" placeholder="تأكيد كلمة المرور الجديدة">
+                            </div>
+                            
+                            <div id="settingsSuccess" class="alert alert-success" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                تم تحديث الإعدادات بنجاح
+                            </div>
+                            
+                            <div id="settingsError" class="alert alert-danger" style="display: none;">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span id="settingsErrorText"></span>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">رابط البروفايل الخاص بك</h3>
+                                <p class="card-subtitle">انسخ هذا الرابط لمشاركة بروفايلك مع الآخرين</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="link-copy-container">
+                                <input type="text" id="profileLinkInput" class="form-control" readonly>
+                                <button onclick="copyProfileLink()" class="btn btn-primary">
+                                    <i class="fas fa-copy"></i> نسخ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">كود QR</h3>
+                                <p class="card-subtitle">يمكنك تحميل كود QR لمشاركة بروفايلك بسهولة</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div id="qrcode" style="margin: 20px 0; display: flex; justify-content: center;"></div>
+                            <div style="display: flex; gap: 10px;">
+                                <button onclick="downloadQRCode()" class="btn btn-primary">
+                                    <i class="fas fa-download"></i> تحميل PNG
+                                </button>
+                                <button onclick="downloadQRCodeSVG()" class="btn btn-success">
+                                    <i class="fas fa-download"></i> تحميل SVG
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, signOut, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, getDocs, increment, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import * as QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js";
+
+        // Helper function لحفظ أو إنشاء مستند
+        async function safeUpdateOrCreateDoc(ref, data) {
+            const docSnap = await getDoc(ref);
+            if (docSnap.exists()) {
+                await updateDoc(ref, data);
+            } else {
+                await setDoc(ref, data);
+            }
+        }
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpGdN1G_6_gx-fypaGFV-bl0SDYN6vSSI",
+            authDomain: "eyadaymancard.firebaseapp.com",
+            projectId: "eyadaymancard",
+            storageBucket: "eyadaymancard.appspot.com",
+            messagingSenderId: "460881398666",
+            appId: "1:460881398666:web:24bb60acda8a4122679673",
+            measurementId: "G-0GTHJWYPTG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUser = null;
+        let userProfileData = null;
+        let customLinks = [];
+        const IMGBB_API_KEY = 'd8112a5beeca31df2e5944fa1809a15a';
+        let visitsChart = null;
+        let sourcesChart = null;
+
+        function setupTabs() {
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tabId = link.getAttribute('data-tab');
+                    
+                    document.querySelectorAll('.sidebar-link').forEach(l => {
+                        l.classList.remove('active');
+                    });
+                    link.classList.add('active');
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId + 'Tab').classList.add('active');
+                    
+                    if (tabId === 'analytics') {
+                        loadAnalyticsData();
+                        initCharts();
+                    }
+                });
+            });
+        }
+
+        function initCharts() {
+            // تدمير المخططات القديمة إذا كانت موجودة
+            if (visitsChart) {
+                visitsChart.destroy();
+            }
+            if (sourcesChart) {
+                sourcesChart.destroy();
+            }
+            
+            // مخطط زيارات الأسبوع
+            const visitsCtx = document.getElementById('visitsChart').getContext('2d');
+            visitsChart = new Chart(visitsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+                    datasets: [{
+                        label: 'الزيارات',
+                        data: [12, 19, 15, 22, 18, 25, 30],
+                        backgroundColor: 'rgba(138, 43, 226, 0.1)',
+                        borderColor: 'rgba(138, 43, 226, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            rtl: true
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // مخطط مصادر الزيارات
+            const sourcesCtx = document.getElementById('sourcesChart').getContext('2d');
+            sourcesChart = new Chart(sourcesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['QR Code', 'رابط مباشر', 'مشاركة', 'بحث', 'أخرى'],
+                    datasets: [{
+                        data: [35, 25, 20, 15, 5],
+                        backgroundColor: [
+                            'rgba(138, 43, 226, 0.8)',
+                            'rgba(40, 167, 69, 0.8)',
+                            'rgba(23, 162, 184, 0.8)',
+                            'rgba(255, 193, 7, 0.8)',
+                            'rgba(108, 117, 125, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            rtl: true
+                        }
+                    }
+                }
+            });
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = 'index.html';
+            });
+        });
+
+        document.getElementById('refreshVisitors').addEventListener('click', () => {
+            loadAnalyticsData();
+        });
+
+        async function loadUserProfile(user) {
+            currentUser = user;
+            const docRef = doc(db, 'users', user.uid);
+            const docSnap = await getDoc(docRef);
+            
+            if (docSnap.exists()) {
+                userProfileData = docSnap.data();
+                
+                document.getElementById('businessName').value = userProfileData.businessName || '';
+                document.getElementById('businessEmail').value = userProfileData.email || user.email;
+                document.getElementById('businessPhone').value = userProfileData.phone || '';
+                document.getElementById('businessAddress').value = userProfileData.address || '';
+                document.getElementById('businessDescription').value = userProfileData.description || '';
+                
+                if (userProfileData.profileImageUrl) {
+                    document.getElementById('profileImagePreview').src = userProfileData.profileImageUrl;
+                }
+                
+                if (userProfileData.bannerImageUrl) {
+                    document.getElementById('bannerImagePreview').src = userProfileData.bannerImageUrl;
+                }
+                
+                if (userProfileData.socialLinks) {
+                    const socialLinks = userProfileData.socialLinks;
+                    
+                    document.getElementById('facebookEnabled').checked = socialLinks.facebook?.enabled || false;
+                    document.getElementById('facebookLink').value = socialLinks.facebook?.url || '';
+                    
+                    document.getElementById('twitterEnabled').checked = socialLinks.twitter?.enabled || false;
+                    document.getElementById('twitterLink').value = socialLinks.twitter?.url || '';
+                    
+                    document.getElementById('instagramEnabled').checked = socialLinks.instagram?.enabled || false;
+                    document.getElementById('instagramLink').value = socialLinks.instagram?.url || '';
+                    
+                    document.getElementById('linkedinEnabled').checked = socialLinks.linkedin?.enabled || false;
+                    document.getElementById('linkedinLink').value = socialLinks.linkedin?.url || '';
+                    
+                    document.getElementById('whatsappEnabled').checked = socialLinks.whatsapp?.enabled || false;
+                    document.getElementById('whatsappNumber').value = socialLinks.whatsapp?.number || '';
+                    
+                    document.getElementById('snapchatEnabled').checked = socialLinks.snapchat?.enabled || false;
+                    document.getElementById('snapchatUsername').value = socialLinks.snapchat?.username || '';
+                    
+                    document.getElementById('tiktokEnabled').checked = socialLinks.tiktok?.enabled || false;
+                    document.getElementById('tiktokLink').value = socialLinks.tiktok?.url || '';
+                    
+                    document.getElementById('youtubeEnabled').checked = socialLinks.youtube?.enabled || false;
+                    document.getElementById('youtubeLink').value = socialLinks.youtube?.url || '';
+                    
+                    document.getElementById('telegramEnabled').checked = socialLinks.telegram?.enabled || false;
+                    document.getElementById('telegramUsername').value = socialLinks.telegram?.username || '';
+                    
+                    document.getElementById('pinterestEnabled').checked = socialLinks.pinterest?.enabled || false;
+                    document.getElementById('pinterestLink').value = socialLinks.pinterest?.url || '';
+                    
+                    document.getElementById('redditEnabled').checked = socialLinks.reddit?.enabled || false;
+                    document.getElementById('redditLink').value = socialLinks.reddit?.url || '';
+                    
+                    document.getElementById('discordEnabled').checked = socialLinks.discord?.enabled || false;
+                    document.getElementById('discordUsername').value = socialLinks.discord?.username || '';
+                }
+                
+                if (userProfileData.customLinks) {
+                    customLinks = userProfileData.customLinks || [];
+                    renderCustomLinks();
+                }
+                
+                const profileLink = `${window.location.origin}/profile.html?id=${user.uid}`;
+                document.getElementById('profileLinkInput').value = profileLink;
+                
+                QRCode.toCanvas(document.getElementById('qrcode'), profileLink, { width: 200 }, (error) => {
+                    if (error) console.error(error);
+                });
+                
+                document.getElementById('totalViews').textContent = userProfileData.profileViews || 0;
+                document.getElementById('totalScans').textContent = userProfileData.qrScans || 0;
+                
+                const engagementRate = userProfileData.profileViews > 0 ? 
+                    Math.round((userProfileData.qrScans / userProfileData.profileViews) * 100) : 0;
+                document.getElementById('engagementRate').textContent = `${engagementRate}%`;
+                
+                document.getElementById('userGreeting').textContent = `مرحباً، ${userProfileData.businessName || user.email.split('@')[0]}`;
+                
+                // تحديث وقت آخر تحديث
+                const now = new Date();
+                document.getElementById('lastUpdatedTime').textContent = now.toLocaleTimeString('ar-EG');
+            }
+        }
+
+        async function uploadImageToImgBB(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    return data.data.url;
+                } else {
+                    throw new Error('Failed to upload image to ImgBB');
+                }
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                throw error;
+            }
+        }
+
+        document.getElementById('profileImageInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const imageUrl = await uploadImageToImgBB(file);
+                    
+                    document.getElementById('profileImagePreview').src = imageUrl;
+                    
+                    await safeUpdateOrCreateDoc(doc(db, 'users', currentUser.uid), {
+                        profileImageUrl: imageUrl,
+                        lastUpdated: serverTimestamp()
+                    });
+                    
+                    document.getElementById('profileSuccess').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('profileSuccess').style.display = 'none';
+                    }, 3000);
+                } catch (error) {
+                    console.error("Error uploading profile image:", error);
+                    alert("حدث خطأ أثناء رفع الصورة، يرجى المحاولة مرة أخرى");
+                }
+            }
+        });
+
+        document.getElementById('bannerImageInput').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                try {
+                    const imageUrl = await uploadImageToImgBB(file);
+                    
+                    document.getElementById('bannerImagePreview').src = imageUrl;
+                    
+                    await safeUpdateOrCreateDoc(doc(db, 'users', currentUser.uid), {
+                        bannerImageUrl: imageUrl,
+                        lastUpdated: serverTimestamp()
+                    });
+                    
+                    document.getElementById('profileSuccess').style.display = 'flex';
+                    setTimeout(() => {
+                        document.getElementById('profileSuccess').style.display = 'none';
+                    }, 3000);
+                } catch (error) {
+                    console.error("Error uploading banner image:", error);
+                    alert("حدث خطأ أثناء رفع الصورة، يرجى المحاولة مرة أخرى");
+                }
+            }
+        });
+
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successEl = document.getElementById('profileSuccess');
+            
+            try {
+                await safeUpdateOrCreateDoc(doc(db, 'users', currentUser.uid), {
+                    businessName: document.getElementById('businessName').value,
+                    email: document.getElementById('businessEmail').value,
+                    phone: document.getElementById('businessPhone').value,
+                    address: document.getElementById('businessAddress').value,
+                    description: document.getElementById('businessDescription').value,
+                    lastUpdated: serverTimestamp()
+                });
+                
+                successEl.style.display = 'flex';
+                setTimeout(() => {
+                    successEl.style.display = 'none';
+                }, 3000);
+                
+                await loadUserProfile(currentUser);
+            } catch (error) {
+                console.error("Error updating profile:", error);
+            }
+        });
+
+        document.getElementById('socialForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successEl = document.getElementById('socialSuccess');
+            
+            try {
+                await safeUpdateOrCreateDoc(doc(db, 'users', currentUser.uid), {
+                    socialLinks: {
+                        facebook: {
+                            enabled: document.getElementById('facebookEnabled').checked,
+                            url: document.getElementById('facebookLink').value
+                        },
+                        twitter: {
+                            enabled: document.getElementById('twitterEnabled').checked,
+                            url: document.getElementById('twitterLink').value
+                        },
+                        instagram: {
+                            enabled: document.getElementById('instagramEnabled').checked,
+                            url: document.getElementById('instagramLink').value
+                        },
+                        linkedin: {
+                            enabled: document.getElementById('linkedinEnabled').checked,
+                            url: document.getElementById('linkedinLink').value
+                        },
+                        whatsapp: {
+                            enabled: document.getElementById('whatsappEnabled').checked,
+                            number: document.getElementById('whatsappNumber').value
+                        },
+                        snapchat: {
+                            enabled: document.getElementById('snapchatEnabled').checked,
+                            username: document.getElementById('snapchatUsername').value
+                        },
+                        tiktok: {
+                            enabled: document.getElementById('tiktokEnabled').checked,
+                            url: document.getElementById('tiktokLink').value
+                        },
+                        youtube: {
+                            enabled: document.getElementById('youtubeEnabled').checked,
+                            url: document.getElementById('youtubeLink').value
+                        },
+                        telegram: {
+                            enabled: document.getElementById('telegramEnabled').checked,
+                            username: document.getElementById('telegramUsername').value
+                        },
+                        pinterest: {
+                            enabled: document.getElementById('pinterestEnabled').checked,
+                            url: document.getElementById('pinterestLink').value
+                        },
+                        reddit: {
+                            enabled: document.getElementById('redditEnabled').checked,
+                            url: document.getElementById('redditLink').value
+                        },
+                        discord: {
+                            enabled: document.getElementById('discordEnabled').checked,
+                            username: document.getElementById('discordUsername').value
+                        }
+                    },
+                    lastUpdated: serverTimestamp()
+                });
+                
+                successEl.style.display = 'flex';
+                setTimeout(() => {
+                    successEl.style.display = 'none';
+                }, 3000);
+                
+                await loadUserProfile(currentUser);
+            } catch (error) {
+                console.error("Error updating social links:", error);
+            }
+        });
+
+        function addCustomLink() {
+            const title = document.getElementById('newLinkTitle').value;
+            const url = document.getElementById('newLinkUrl').value;
+            
+            if (title && url) {
+                customLinks.push({ title, url });
+                renderCustomLinks();
+                
+                document.getElementById('newLinkTitle').value = '';
+                document.getElementById('newLinkUrl').value = '';
+            } else {
+                alert('الرجاء إدخال عنوان الرابط والرابط');
+            }
+        }
+
+        function renderCustomLinks() {
+            const container = document.getElementById('customLinksContainer');
+            container.innerHTML = '';
+            
+            if (customLinks.length === 0) {
+                container.innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        لا توجد روابط مضافة حتى الآن
+                    </div>
+                `;
+                return;
+            }
+            
+            customLinks.forEach((link, index) => {
+                const linkItem = document.createElement('div');
+                linkItem.className = 'custom-link-item';
+                linkItem.innerHTML = `
+                    <div style="flex: 1;">
+                        <strong>${link.title}</strong>
+                        <div style="font-size: 0.8em; color: var(--gray);">${link.url}</div>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeCustomLink(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                container.appendChild(linkItem);
+            });
+        }
+
+        function removeCustomLink(index) {
+            if (confirm('هل أنت متأكد من حذف هذا الرابط؟')) {
+                customLinks.splice(index, 1);
+                renderCustomLinks();
+            }
+        }
+
+        document.getElementById('linksForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successEl = document.getElementById('linksSuccess');
+            
+            try {
+                await safeUpdateOrCreateDoc(doc(db, 'users', currentUser.uid), {
+                    customLinks: customLinks,
+                    lastUpdated: serverTimestamp()
+                });
+                
+                successEl.style.display = 'flex';
+                setTimeout(() => {
+                    successEl.style.display = 'none';
+                }, 3000);
+                
+                await loadUserProfile(currentUser);
+            } catch (error) {
+                console.error("Error updating custom links:", error);
+            }
+        });
+
+        async function loadAnalyticsData() {
+            try {
+                const visitsSnapshot = await getDocs(collection(db, `users/${currentUser.uid}/visits`));
+                
+                const visitorsTable = document.getElementById('visitorsTable');
+                visitorsTable.innerHTML = '';
+                
+                visitsSnapshot.forEach(doc => {
+                    const visit = doc.data();
+                    const date = visit.timestamp?.toDate();
+                    
+                    visitorsTable.innerHTML += `
+                        <tr>
+                            <td>${date ? date.toLocaleDateString('ar-EG') : '--'}</td>
+                            <td>${date ? date.toLocaleTimeString('ar-EG') : '--'}</td>
+                            <td>
+                                <img src="https://flagcdn.com/16x12/${visit.countryCode || 'sa'}.png" class="country-flag">
+                                ${visit.country || 'غير معروف'}
+                            </td>
+                            <td>${visit.device || 'غير معروف'}</td>
+                            <td><span class="badge ${visit.type === 'qr' ? 'badge-primary' : 'badge-success'}">${visit.type === 'qr' ? 'QR Code' : 'رابط'}</span></td>
+                        </tr>
+                    `;
+                });
+                
+                document.getElementById('totalVisitors').textContent = visitsSnapshot.size;
+                
+                const totalViews = userProfileData.profileViews || 0;
+                const totalScans = userProfileData.qrScans || 0;
+                
+                document.getElementById('totalViews').textContent = totalViews;
+                document.getElementById('totalScans').textContent = totalScans;
+                
+                const engagementRate = totalViews > 0 ? 
+                    Math.round((totalScans / totalViews) * 100) : 0;
+                document.getElementById('engagementRate').textContent = `${engagementRate}%`;
+                
+            } catch (error) {
+                console.error("Error loading analytics:", error);
+            }
+        }
+
+        function copyProfileLink() {
+            const linkInput = document.getElementById('profileLinkInput');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const originalText = linkInput.value;
+            linkInput.value = 'تم النسخ بنجاح!';
+            setTimeout(() => {
+                linkInput.value = originalText;
+            }, 2000);
+        }
+
+        function downloadQRCode() {
+            const canvas = document.querySelector('#qrcode canvas');
+            const link = document.createElement('a');
+            link.download = 'eyadcard-qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadQRCodeSVG() {
+            const profileLink = document.getElementById('profileLinkInput').value;
+            QRCode.toString(profileLink, { type: 'svg' }, (err, svg) => {
+                if (err) throw err;
+                const blob = new Blob([svg], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'eyadcard-qrcode.svg';
+                link.href = url;
+                link.click();
+            });
+        }
+
+        document.getElementById('accountSettingsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successEl = document.getElementById('settingsSuccess');
+            const errorEl = document.getElementById('settingsError');
+            const errorTextEl = document.getElementById('settingsErrorText');
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+            
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+            
+            if (newPassword && newPassword !== confirmNewPassword) {
+                errorTextEl.textContent = 'كلمتا المرور غير متطابقتين';
+                errorEl.style.display = 'flex';
+                return;
+            }
+            
+            try {
+                if (newPassword) {
+                    const credential = EmailAuthProvider.credential(
+                        currentUser.email,
+                        currentPassword
+                    );
+                    
+                    await reauthenticateWithCredential(currentUser, credential);
+                    await updatePassword(currentUser, newPassword);
+                }
+                
+                successEl.style.display = 'flex';
+                setTimeout(() => {
+                    successEl.style.display = 'none';
+                }, 3000);
+                
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmNewPassword').value = '';
+                
+            } catch (error) {
+                console.error("Error updating password:", error);
+                errorTextEl.textContent = getAuthErrorMessage(error.code);
+                errorEl.style.display = 'flex';
+            }
+        });
+
+        function getAuthErrorMessage(errorCode) {
+            const messages = {
+                'auth/wrong-password': 'كلمة المرور الحالية غير صحيحة',
+                'auth/weak-password': 'كلمة المرور الجديدة ضعيفة (يجب أن تكون 6 أحرف على الأقل)',
+                'auth/requires-recent-login': 'يجب تسجيل الدخول مرة أخرى لتغيير كلمة المرور'
+            };
+            return messages[errorCode] || 'حدث خطأ أثناء تحديث كلمة المرور';
+        }
+
+        // تبديل الوضع الداكن/الفاتح
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                setupTabs();
+                loadUserProfile(user);
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupTabs();
+        });
+    </script>
+</body>
+</html>
